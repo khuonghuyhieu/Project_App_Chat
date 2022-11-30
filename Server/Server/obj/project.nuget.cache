@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "qRsfCLVDWA4MDziD11Tk8TkmwfOVZqYPIDAk49B9uQ1fLBS4Bc+mDxJqyLxMkCDI7jfBXimgveczP+rNfN4wGg==",
+  "success": true,
+  "projectFilePath": "D:\\SGU\\HK7\\LapTrinhMang\\UIHuyHieu\\Project_App_Chat\\Server\\Server\\Server.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\nhatv\\.nuget\\packages\\speckle.newtonsoft.json\\12.0.3.1\\speckle.newtonsoft.json.12.0.3.1.nupkg.sha512"
+  ],
+  "logs": []
+}
