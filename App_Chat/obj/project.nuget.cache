@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "XuUbnEDhm/xVvi3E6k6OVqOtL/eATJWR16DS7vIyesCy4Au7r1sWAtWj19NZ3M1ujpjoS4HFTpaFmE2Rkj1DZw==",
+  "success": true,
+  "projectFilePath": "D:\\SGU\\HK7\\LapTrinhMang\\UIHuyHieu\\Project_App_Chat\\App_Chat\\App_Chat.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\nhatv\\.nuget\\packages\\newtonsoft.json\\12.0.1\\newtonsoft.json.12.0.1.nupkg.sha512",
+    "C:\\Users\\nhatv\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}
