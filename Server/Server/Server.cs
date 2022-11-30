@@ -119,6 +119,17 @@ namespace Server
                                    
                                     break;
                                 }
+                            case "getAccountsOnline":
+                                {                                    
+                                    var accountOnlineRes = new Common();
+
+                                    accountOnlineRes.kind = "accountsOnlineRes";
+                                    accountOnlineRes.content = JsonSerializer.Serialize<List<string>>(dsUsers.Keys.ToList());
+
+                                    Utils.SendCommon(accountOnlineRes, client);
+
+                                    break;
+                                }
                             case "login":
                                 {
                                     var loginReq = JsonSerializer.Deserialize<Login>(common.content);
@@ -126,7 +137,7 @@ namespace Server
                                     
                                     loginRes.kind = "loginRes";
 
-                                    if (dsUsers.Keys.Contains(loginReq.userName) && dsUsers[loginReq.userName].Equals(loginReq.password))
+                                    if (dsUsers.Keys.Contains(loginReq.userName as string) && dsUsers[loginReq.userName].Equals(loginReq.password))
                                     {
                                         dsSocketClient.Remove(loginReq.userName);
                                         dsSocketClient.Add(loginReq.userName, client);
@@ -166,7 +177,7 @@ namespace Server
                                 {
                                     var messageReq = JsonSerializer.Deserialize<Message>(common.content);
 
-                                    if (dsSocketClient.Keys.Contains(messageReq.Receiver))
+                                    if (dsSocketClient.Keys.Contains(messageReq.Receiver as string))
                                     {
                                         var socketReceiver = dsSocketClient[messageReq.Receiver];
                                         //var message = new byte[1024];

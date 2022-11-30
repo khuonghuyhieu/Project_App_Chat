@@ -1,10 +1,12 @@
-﻿using System;
+﻿using ClassLibrary;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -12,74 +14,75 @@ namespace Project_App_Chat
 {
     public partial class MainChat : Form
     {
+        private Thread threadReceive;
+
         public MainChat()
         {
             InitializeComponent();
         }
 
-        private void label2_Click(object sender, EventArgs e)
-        {
+        private void SendPacketAccountsOnline()
+        {        
+            var common = new Common
+            {
+                kind = "getAccountsOnline",              
+            };
 
+            Utils.SendCommon(common, MainForm.client);
         }
-
-        private void label1_Click(object sender, EventArgs e)
+        
+        #region Response From Server
+        private void ResponeFromServer()
         {
+            while (true)
+            {
+                var receiverMessage = new byte[1024];
+                var bytesReceiver = MainForm.client.Receive(receiverMessage);
 
+                var originalMessage = Encoding.ASCII.GetString(receiverMessage, 0, bytesReceiver);
+                originalMessage = originalMessage.Replace("\0", "");
+                var packetRes = JsonSerializer.Deserialize<Common>(originalMessage);
+
+                if (packetRes != null && packetRes.content != null)
+                {
+                    switch (packetRes.kind)
+                    {                     
+                        case "accountsOnlineRes":
+                            {
+                                var accountsOnline = JsonSerializer.Deserialize<List<string>>(packetRes.content);
+
+                                if (accountsOnline.Any())
+                                {
+                                    listBoxOnline.DataSource = accountsOnline;
+                                }
+
+                                break;
+                            }
+                        default:
+                            break;
+                    }
+                }
+            }
+            MainForm.client.Disconnect(true);
+            MainForm.client.Close();
         }
-
-        private void pictureBox2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel4_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
+        #endregion
 
         private void MainChat_Load(object sender, EventArgs e)
         {
-           
+            //gui goi tin lay cac user dang online
+            SendPacketAccountsOnline();
+
+            //tao thread de nhan tin nhan
+            threadReceive = new Thread(new ThreadStart(ResponeFromServer));
+            threadReceive.IsBackground = true;
+            threadReceive.Start();
+
+            string text = listBoxOnline.GetItemText(listBoxOnline.SelectedItem);
+        }
+        private void MainChat_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Utils.KillThread(threadReceive);
         }
     }
 }

@@ -35,7 +35,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.label7 = new System.Windows.Forms.Label();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.listBoxOnline = new System.Windows.Forms.ListBox();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
@@ -96,7 +96,6 @@
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 1;
             this.pictureBox2.TabStop = false;
-            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
             // panel1
             // 
@@ -130,7 +129,7 @@
             // 
             this.tabPage1.BackColor = System.Drawing.Color.LightGray;
             this.tabPage1.Controls.Add(this.label7);
-            this.tabPage1.Controls.Add(this.listBox1);
+            this.tabPage1.Controls.Add(this.listBoxOnline);
             this.tabPage1.Controls.Add(this.comboBox3);
             this.tabPage1.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.tabPage1.Location = new System.Drawing.Point(4, 24);
@@ -153,19 +152,19 @@
             this.label7.TabIndex = 15;
             this.label7.Text = "Chat with";
             // 
-            // listBox1
+            // listBoxOnline
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 15;
-            this.listBox1.Items.AddRange(new object[] {
+            this.listBoxOnline.FormattingEnabled = true;
+            this.listBoxOnline.ItemHeight = 15;
+            this.listBoxOnline.Items.AddRange(new object[] {
             "Khuong Huy Hieu",
             "Truong Nhat Vy",
             "Thai Kim Luong"});
-            this.listBox1.Location = new System.Drawing.Point(7, 7);
-            this.listBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(308, 259);
-            this.listBox1.TabIndex = 0;
+            this.listBoxOnline.Location = new System.Drawing.Point(7, 7);
+            this.listBoxOnline.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.listBoxOnline.Name = "listBoxOnline";
+            this.listBoxOnline.Size = new System.Drawing.Size(308, 259);
+            this.listBoxOnline.TabIndex = 0;
             // 
             // comboBox3
             // 
@@ -175,7 +174,6 @@
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(193, 23);
             this.comboBox3.TabIndex = 14;
-            this.comboBox3.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
             // 
             // tabPage2
             // 
@@ -251,7 +249,6 @@
             this.label6.Size = new System.Drawing.Size(84, 20);
             this.label6.TabIndex = 13;
             this.label6.Text = "Chat with";
-            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // comboBox2
             // 
@@ -261,7 +258,6 @@
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(193, 23);
             this.comboBox2.TabIndex = 12;
-            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
             // 
             // label4
             // 
@@ -273,7 +269,6 @@
             this.label4.Size = new System.Drawing.Size(59, 20);
             this.label4.TabIndex = 10;
             this.label4.Text = "Group";
-            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // label3
             // 
@@ -285,7 +280,6 @@
             this.label3.Size = new System.Drawing.Size(60, 20);
             this.label3.TabIndex = 8;
             this.label3.Text = "Online";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // splitter3
             // 
@@ -315,7 +309,6 @@
             this.label1.Size = new System.Drawing.Size(261, 37);
             this.label1.TabIndex = 3;
             this.label1.Text = "User Connected";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // splitter1
             // 
@@ -336,7 +329,6 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(707, 44);
             this.panel4.TabIndex = 10;
-            this.panel4.Paint += new System.Windows.Forms.PaintEventHandler(this.panel4_Paint);
             // 
             // button1
             // 
@@ -370,7 +362,6 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(706, 489);
             this.textBox1.TabIndex = 11;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // textBox2
             // 
@@ -477,6 +468,7 @@
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "MainChat";
             this.Text = "Form2";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainChat_FormClosing);
             this.Load += new System.EventHandler(this.MainChat_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
@@ -522,7 +514,7 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.CheckedListBox checkedListBox1;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox listBoxOnline;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.ListBox listBox2;
