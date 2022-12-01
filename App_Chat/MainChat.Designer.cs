@@ -38,10 +38,10 @@
             this.listBoxOnline = new System.Windows.Forms.ListBox();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
+            this.checkAddToGroup = new System.Windows.Forms.CheckedListBox();
             this.button3 = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.listBox2 = new System.Windows.Forms.ListBox();
+            this.listBoxGroup = new System.Windows.Forms.ListBox();
             this.label6 = new System.Windows.Forms.Label();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -52,10 +52,10 @@
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.panel4 = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.labelUserLogin = new System.Windows.Forms.Label();
+            this.txbKhungChat = new System.Windows.Forms.TextBox();
+            this.txbChat = new System.Windows.Forms.TextBox();
+            this.btnSend = new System.Windows.Forms.Button();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
@@ -165,6 +165,7 @@
             this.listBoxOnline.Name = "listBoxOnline";
             this.listBoxOnline.Size = new System.Drawing.Size(308, 259);
             this.listBoxOnline.TabIndex = 0;
+            this.listBoxOnline.SelectedIndexChanged += new System.EventHandler(this.listBoxOnline_SelectedIndexChanged);
             // 
             // comboBox3
             // 
@@ -178,7 +179,7 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.LightGray;
-            this.tabPage2.Controls.Add(this.checkedListBox1);
+            this.tabPage2.Controls.Add(this.checkAddToGroup);
             this.tabPage2.Controls.Add(this.button3);
             this.tabPage2.Location = new System.Drawing.Point(4, 24);
             this.tabPage2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -188,19 +189,19 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Add to group";
             // 
-            // checkedListBox1
+            // checkAddToGroup
             // 
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Items.AddRange(new object[] {
+            this.checkAddToGroup.FormattingEnabled = true;
+            this.checkAddToGroup.Items.AddRange(new object[] {
             "Khuong Huy Hieu",
             "Truong Nhat Vy",
             "Thai Kim Luong",
             "Hoang Tan"});
-            this.checkedListBox1.Location = new System.Drawing.Point(7, 7);
-            this.checkedListBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(304, 238);
-            this.checkedListBox1.TabIndex = 1;
+            this.checkAddToGroup.Location = new System.Drawing.Point(7, 7);
+            this.checkAddToGroup.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.checkAddToGroup.Name = "checkAddToGroup";
+            this.checkAddToGroup.Size = new System.Drawing.Size(304, 220);
+            this.checkAddToGroup.TabIndex = 1;
             // 
             // button3
             // 
@@ -216,7 +217,7 @@
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.LightGray;
-            this.panel3.Controls.Add(this.listBox2);
+            this.panel3.Controls.Add(this.listBoxGroup);
             this.panel3.Controls.Add(this.label6);
             this.panel3.Controls.Add(this.comboBox2);
             this.panel3.Location = new System.Drawing.Point(20, 455);
@@ -225,19 +226,19 @@
             this.panel3.Size = new System.Drawing.Size(332, 167);
             this.panel3.TabIndex = 10;
             // 
-            // listBox2
+            // listBoxGroup
             // 
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.ItemHeight = 15;
-            this.listBox2.Items.AddRange(new object[] {
+            this.listBoxGroup.FormattingEnabled = true;
+            this.listBoxGroup.ItemHeight = 15;
+            this.listBoxGroup.Items.AddRange(new object[] {
             "Khuong Huy Hieu",
             "Truong Nhat Vy",
             "Thai Kim Luong"});
-            this.listBox2.Location = new System.Drawing.Point(12, 8);
-            this.listBox2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(308, 124);
-            this.listBox2.TabIndex = 1;
+            this.listBoxGroup.Location = new System.Drawing.Point(12, 8);
+            this.listBoxGroup.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.listBoxGroup.Name = "listBoxGroup";
+            this.listBoxGroup.Size = new System.Drawing.Size(308, 124);
+            this.listBoxGroup.TabIndex = 1;
             // 
             // label6
             // 
@@ -323,7 +324,7 @@
             // 
             this.panel4.BackColor = System.Drawing.Color.LightGray;
             this.panel4.Controls.Add(this.button1);
-            this.panel4.Controls.Add(this.label5);
+            this.panel4.Controls.Add(this.labelUserLogin);
             this.panel4.Location = new System.Drawing.Point(7, 7);
             this.panel4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.panel4.Name = "panel4";
@@ -342,48 +343,49 @@
             this.button1.Text = "Logout";
             this.button1.UseVisualStyleBackColor = false;
             // 
-            // label5
+            // labelUserLogin
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
-            this.label5.Location = new System.Drawing.Point(239, 13);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(196, 20);
-            this.label5.TabIndex = 11;
-            this.label5.Text = "User: Khuong Huy Hieu";
+            this.labelUserLogin.AutoSize = true;
+            this.labelUserLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.labelUserLogin.Location = new System.Drawing.Point(239, 13);
+            this.labelUserLogin.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelUserLogin.Name = "labelUserLogin";
+            this.labelUserLogin.Size = new System.Drawing.Size(196, 20);
+            this.labelUserLogin.TabIndex = 11;
+            this.labelUserLogin.Text = "User: Khuong Huy Hieu";
             // 
-            // textBox1
+            // txbKhungChat
             // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.textBox1.Location = new System.Drawing.Point(7, 58);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(706, 489);
-            this.textBox1.TabIndex = 11;
+            this.txbKhungChat.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.txbKhungChat.Location = new System.Drawing.Point(7, 58);
+            this.txbKhungChat.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txbKhungChat.Multiline = true;
+            this.txbKhungChat.Name = "txbKhungChat";
+            this.txbKhungChat.Size = new System.Drawing.Size(706, 489);
+            this.txbKhungChat.TabIndex = 11;
             // 
-            // textBox2
+            // txbChat
             // 
-            this.textBox2.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.textBox2.Location = new System.Drawing.Point(7, 554);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(626, 42);
-            this.textBox2.TabIndex = 12;
+            this.txbChat.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.txbChat.Location = new System.Drawing.Point(7, 554);
+            this.txbChat.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txbChat.Multiline = true;
+            this.txbChat.Name = "txbChat";
+            this.txbChat.Size = new System.Drawing.Size(626, 42);
+            this.txbChat.TabIndex = 12;
             // 
-            // button2
+            // btnSend
             // 
-            this.button2.BackColor = System.Drawing.Color.SteelBlue;
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button2.Location = new System.Drawing.Point(640, 554);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(74, 43);
-            this.button2.TabIndex = 13;
-            this.button2.Text = "Send";
-            this.button2.UseVisualStyleBackColor = false;
+            this.btnSend.BackColor = System.Drawing.Color.SteelBlue;
+            this.btnSend.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnSend.Location = new System.Drawing.Point(640, 554);
+            this.btnSend.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btnSend.Name = "btnSend";
+            this.btnSend.Size = new System.Drawing.Size(74, 43);
+            this.btnSend.TabIndex = 13;
+            this.btnSend.Text = "Send";
+            this.btnSend.UseVisualStyleBackColor = false;
+            this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
             // 
             // tabControl2
             // 
@@ -399,9 +401,9 @@
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.panel4);
-            this.tabPage3.Controls.Add(this.textBox2);
-            this.tabPage3.Controls.Add(this.button2);
-            this.tabPage3.Controls.Add(this.textBox1);
+            this.tabPage3.Controls.Add(this.txbChat);
+            this.tabPage3.Controls.Add(this.btnSend);
+            this.tabPage3.Controls.Add(this.txbKhungChat);
             this.tabPage3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.tabPage3.Location = new System.Drawing.Point(4, 24);
             this.tabPage3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -434,24 +436,28 @@
             this.dataGridView1.Location = new System.Drawing.Point(7, 40);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.Size = new System.Drawing.Size(707, 558);
             this.dataGridView1.TabIndex = 0;
             // 
             // Column1
             // 
             this.Column1.HeaderText = "Email";
+            this.Column1.MinimumWidth = 6;
             this.Column1.Name = "Column1";
             this.Column1.Width = 200;
             // 
             // Column2
             // 
             this.Column2.HeaderText = "Name";
+            this.Column2.MinimumWidth = 6;
             this.Column2.Name = "Column2";
             this.Column2.Width = 200;
             // 
             // Column3
             // 
             this.Column3.HeaderText = "Add Friend";
+            this.Column3.MinimumWidth = 6;
             this.Column3.Name = "Column3";
             this.Column3.Width = 163;
             // 
@@ -505,19 +511,19 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label labelUserLogin;
+        private System.Windows.Forms.TextBox txbKhungChat;
+        private System.Windows.Forms.TextBox txbChat;
+        private System.Windows.Forms.Button btnSend;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.CheckedListBox checkedListBox1;
+        private System.Windows.Forms.CheckedListBox checkAddToGroup;
         private System.Windows.Forms.ListBox listBoxOnline;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.ListBox listBoxGroup;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox comboBox3;
         private System.Windows.Forms.TabControl tabControl2;

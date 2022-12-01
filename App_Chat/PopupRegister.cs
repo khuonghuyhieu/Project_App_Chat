@@ -25,7 +25,7 @@ namespace Project_App_Chat
         }
 
         #region Register
-        private void Register()
+        private void RequestRegister()
         {
             var register = new Login
             {
@@ -47,7 +47,7 @@ namespace Project_App_Chat
         private void btnRegister_Click(object sender, EventArgs e)
         {
             if (Utils.ConfirmPassword(txbPassword.Text, txbConfirmPassword.Text))
-                Register();
+                RequestRegister();
             else
                 MessageBox.Show("Password not same confirm password");
         }

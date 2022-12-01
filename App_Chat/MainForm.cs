@@ -17,6 +17,7 @@ namespace Project_App_Chat
     {
         public static IPEndPoint ipServer;
         public static Socket client;
+        public static string userName;
         public MainForm()
         {
             InitializeComponent();

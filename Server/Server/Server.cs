@@ -23,12 +23,7 @@ namespace Server
 
             dsUsers = new Dictionary<string, string>();
             dsSocketClient = new Dictionary<string, Socket>();
-            dsGroup = new Dictionary<string, List<string>>();
-
-            //set cung cac gia tri
-            dsUsers.Add("user1", "123");
-            dsUsers.Add("user2", "123");
-            txbIp.Text = (Utils.GetLocalIPAddress());
+            dsGroup = new Dictionary<string, List<string>>();            
         }
 
         #region Start Server cho cac Client login vao
@@ -88,6 +83,7 @@ namespace Server
                         continue;
 
                     var originalMessage = Encoding.ASCII.GetString(reqClient, 0, byteReceive);
+                    //originalMessage = Utils.ClearJson(originalMessage);
                     var common = JsonSerializer.Deserialize<Common>(originalMessage);
 
                     if (common != null & common.kind != null)
@@ -120,13 +116,37 @@ namespace Server
                                     break;
                                 }
                             case "getAccountsOnline":
-                                {                                    
+                                {
+                                    var accountOnlineReq = JsonSerializer.Deserialize<string>(common.content); //chi co user Name
                                     var accountOnlineRes = new Common();
+                                    var accountsOnline = dsUsers.Keys.Where(item => !item.Equals(accountOnlineReq));
 
                                     accountOnlineRes.kind = "accountsOnlineRes";
-                                    accountOnlineRes.content = JsonSerializer.Serialize<List<string>>(dsUsers.Keys.ToList());
+                                    accountOnlineRes.content = JsonSerializer.Serialize<IEnumerable<string>>(accountsOnline);
 
                                     Utils.SendCommon(accountOnlineRes, client);
+
+                                    break;
+                                }
+                            case "getGroupJoined":
+                                {
+                                    var groupJoinedReq = JsonSerializer.Deserialize<string>(common.content); //chi co user Name
+                                    var groupJoinRes = new Common();
+                                    var groupJoined = new List<string>();
+
+                                    foreach (var item in dsGroup)
+                                    {
+                                        foreach (var subItem in item.Value)
+                                        {
+                                            if(subItem.Equals(groupJoinedReq))
+                                                groupJoined.Add(item.Key);
+                                        }
+                                    }    
+
+                                    groupJoinRes.kind = "groupJoinedRes";
+                                    groupJoinRes.content = JsonSerializer.Serialize<IEnumerable<string>>(groupJoined);
+
+                                    Utils.SendCommon(groupJoinRes, client);
 
                                     break;
                                 }
@@ -185,11 +205,7 @@ namespace Server
                                         //message = Encoding.ASCII.GetBytes(String.Format("{0}: {1}", messageReq.Sender, messageReq.Content));
                                         socketReceiver.Send(reqClient, reqClient.Length, SocketFlags.None);
                                         AddMessage(String.Format("{0} gui den {1}: {2}", messageReq.Sender, messageReq.Receiver, messageReq.Content));
-                                    }
-                                    //else
-                                    //{
-                                    //    ResponseToClient("Doi phuong hien tai khong online !", client);
-                                    //}
+                                    }                                   
 
                                     break;
                                 }
@@ -253,6 +269,14 @@ namespace Server
         }
         private void ServerForm_Load(object sender, EventArgs e)
         {
+            //set cung cac gia tri
+            dsUsers.Add("user1", "123");
+            dsUsers.Add("user2", "123");
+            dsUsers.Add("user3", "123");
+            dsGroup.Add("GroupVy", new List<string> { "user1", "use2" });
+            dsGroup.Add("GroupTmp", new List<string> { "user3","user4" });          
+            txbIp.Text = (Utils.GetLocalIPAddress());
+
             //Mở kết nối cho Server để chuẩn bị lắng nghe các Client
             StartServer();
 

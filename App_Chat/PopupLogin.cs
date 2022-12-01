@@ -22,7 +22,7 @@ namespace Project_App_Chat
         }
 
         #region Login
-        private void LoginToServer()
+        private void RequestLogin()
         {
             //goi tin dang nhap
             var login = new Login
@@ -40,7 +40,7 @@ namespace Project_App_Chat
         }
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            LoginToServer();
+            RequestLogin();
         }
         #endregion
 
@@ -64,6 +64,8 @@ namespace Project_App_Chat
                             {
                                 if (packetRes.content.Equals("loginSuccessful"))
                                 {
+                                    MainForm.userName = txbUserName.Text;
+
                                     Program.mainForm.Hide();
                                     this.Close();
 

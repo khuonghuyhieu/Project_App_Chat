@@ -42,5 +42,11 @@ namespace ClassLibrary
                 throw;
             }
         }
+        public static string ClearJson(string json)
+        {
+            //return json.Replace("\\u0022", "\"").Replace("\0", "");
+            //return json.Replace("\\u0022", "\"");
+            return json.Replace("\0", "");
+        }
     }
 }
