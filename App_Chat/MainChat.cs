@@ -21,6 +21,11 @@ namespace Project_App_Chat
         public MainChat()
         {
             InitializeComponent();
+
+            //tao thread de nhan tin nhan
+            threadReceive = new Thread(new ThreadStart(ResponeFromServer));
+            //threadReceive.IsBackground = true;
+            threadReceive.Start();
         }
 
         #region Response From Server
@@ -100,19 +105,13 @@ namespace Project_App_Chat
             Utils.SendCommon(common, MainForm.client);
         }
         private void MainChat_Load(object sender, EventArgs e)
-        {
-            //tao thread de nhan tin nhan
-            threadReceive = new Thread(new ThreadStart(ResponeFromServer));
-            //threadReceive.IsBackground = true;
-            threadReceive.Start();
-
+        {          
             //gui goi tin lay cac user dang online
             RequestAccountOnline(MainForm.userName);
             //gui goi tin lay cac group ma user dang login da join
-            //RequestGroupJoined(MainForm.userName);
+            RequestGroupJoined(MainForm.userName);
 
             labelUserLogin.Text = MainForm.userName;
-
         }
         private void MainChat_FormClosing(object sender, FormClosingEventArgs e)
         {
