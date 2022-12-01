@@ -15,8 +15,7 @@ namespace Project_App_Chat
     public partial class MainChat : Form
     {
         private Thread threadReceive;
-        private int lastSelectedIndex = -1;
-        private static object lockObj = new object();
+        private int oldSelectedIndex = -1;
 
         public MainChat()
         {
@@ -105,7 +104,7 @@ namespace Project_App_Chat
             Utils.SendCommon(common, MainForm.client);
         }
         private void MainChat_Load(object sender, EventArgs e)
-        {          
+        {
             //gui goi tin lay cac user dang online
             RequestAccountOnline(MainForm.userName);
             //gui goi tin lay cac group ma user dang login da join
@@ -135,9 +134,15 @@ namespace Project_App_Chat
                 content = JsonSerializer.Serialize(message)
             };
 
-            Utils.SendCommon(common, MainForm.client);
+            if (!message.Receiver.Equals(string.Empty))
+            {
+                Utils.SendCommon(common, MainForm.client);
 
-            AddMessage(message.Sender + ": " + message.Content);
+                AddMessage(message.Sender + ": " + message.Content);
+            }
+            else
+                MessageBox.Show("Vui lòng chọn user để gửi tin nhắn");
+           
         }
         private void btnSend_Click(object sender, EventArgs e)
         {
@@ -166,13 +171,15 @@ namespace Project_App_Chat
             txbKhungChat.AppendText(Environment.NewLine);
             txbChat.Clear();
         }
+
         private void listBoxOnline_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //if(listBoxOnline.SelectedIndex >= )
-            //{
-            //    lastSelectedIndex = listBoxOnline.SelectedIndex;
-            //}    
-            //lastSelectedIndex = listBoxOnline.SelectedIndex;
+            if (oldSelectedIndex == listBoxOnline.SelectedIndex)
+            {
+                listBoxOnline.ClearSelected();
+            }
+            else
+                oldSelectedIndex = listBoxOnline.SelectedIndex;
         }
     }
 }

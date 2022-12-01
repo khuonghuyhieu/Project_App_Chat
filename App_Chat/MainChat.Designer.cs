@@ -520,7 +520,6 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.CheckedListBox checkAddToGroup;
-        private System.Windows.Forms.ListBox listBoxOnline;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.ListBox listBoxGroup;
@@ -533,5 +532,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private ListBox listBoxOnline;
     }
 }

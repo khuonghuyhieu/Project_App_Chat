@@ -6,5 +6,12 @@ namespace App_Chat
         {
             InitializeComponent();
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            string[] row = { "cc", "sua", "noi" };
+            var listViewItem = new ListViewItem(row);
+            
+        }
     }
 }
