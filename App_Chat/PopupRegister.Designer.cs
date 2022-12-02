@@ -144,7 +144,6 @@
             this.Name = "PopupRegister";
             this.Text = "PopupRegister";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PopupRegister_FormClosing);
-            this.Load += new System.EventHandler(this.PopupRegister_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

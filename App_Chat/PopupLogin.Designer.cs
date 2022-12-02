@@ -179,7 +179,6 @@
             this.Name = "PopupLogin";
             this.Text = "PopupLogin";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PopupLogin_FormClosing);
-            this.Load += new System.EventHandler(this.PopupLogin_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

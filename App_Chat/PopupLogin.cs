@@ -19,6 +19,17 @@ namespace Project_App_Chat
             InitializeComponent();
 
             CheckForIllegalCrossThreadCalls = false;
+
+            //tao thread de nhan tin nhan
+            threadReceive = new Thread(new ThreadStart(ResponeFromServer));
+            threadReceive.IsBackground = true;
+            threadReceive.Start();
+
+            //set cung test cho nhanh
+            txbIp.Text = Utils.GetLocalIPAddress();
+            txbPort.Text = "2008";
+            txbUserName.Text = "user1";
+            txbPassword.Text = "123";            
         }
 
         #region Login
@@ -65,12 +76,14 @@ namespace Project_App_Chat
                                 if (packetRes.content.Equals("loginSuccessful"))
                                 {
                                     MainForm.userName = txbUserName.Text;
-
                                     Program.mainForm.Hide();
+
                                     this.Close();
 
                                     var mainChat = new MainChat();
                                     mainChat.ShowDialog();
+
+                                    //return;
                                 }                                    
                                 else
                                     MessageBox.Show("Login Fails");
@@ -87,20 +100,6 @@ namespace Project_App_Chat
         }    
         #endregion
 
-
-        private void PopupLogin_Load(object sender, EventArgs e)
-        {
-            //set cung gia tri cho de test
-            txbIp.Text = Utils.GetLocalIPAddress();
-            txbPort.Text = "2008";
-            txbUserName.Text = "user1";
-            txbPassword.Text = "123";
-
-            //tao thread de nhan tin nhan
-            threadReceive = new Thread(new ThreadStart(ResponeFromServer));
-            threadReceive.IsBackground = true;
-            threadReceive.Start();
-        }
         private void PopupLogin_FormClosing(object sender, FormClosingEventArgs e)
         {
            Utils.KillThread(threadReceive);

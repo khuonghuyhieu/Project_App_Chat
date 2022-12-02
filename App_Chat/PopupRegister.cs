@@ -21,7 +21,12 @@ namespace Project_App_Chat
         {
             InitializeComponent();
 
-            //CheckForIllegalCrossThreadCalls = false;
+            CheckForIllegalCrossThreadCalls = false;
+
+            //tao thread de nhan tin nhan
+            threadReceive = new Thread(new ThreadStart(ResponeFromServer));
+            threadReceive.IsBackground = true;
+            threadReceive.Start();
         }
 
         #region Register
@@ -74,8 +79,10 @@ namespace Project_App_Chat
                                 if (packetRes.content.Equals("registerSuccessful"))
                                 {
                                     MessageBox.Show("Register Successful");
-
+                                   
                                     this.Close();
+
+                                    return;
                                 }                                    
                                 else
                                     MessageBox.Show("User Name Is Exits");
@@ -96,13 +103,6 @@ namespace Project_App_Chat
         private void PopupRegister_FormClosing(object sender, FormClosingEventArgs e)
         {
             Utils.KillThread(threadReceive);
-        }
-        private void PopupRegister_Load(object sender, EventArgs e)
-        {
-            //tao thread de nhan tin nhan
-            threadReceive = new Thread(new ThreadStart(ResponeFromServer));
-            threadReceive.IsBackground = true;
-            threadReceive.Start();
         }
     }
 

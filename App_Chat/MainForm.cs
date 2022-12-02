@@ -23,6 +23,12 @@ namespace Project_App_Chat
             InitializeComponent();
 
             CheckForIllegalCrossThreadCalls = false;
+
+            //tao connect voi server
+            ipServer = new IPEndPoint(IPAddress.Parse(Utils.GetLocalIPAddress()), int.Parse("2008"));
+            //ipServer = new IPEndPoint(IPAddress.Parse("192.168.235.1"), int.Parse("2008"));
+            client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            client.Connect(ipServer);
         }
 
         private void btnRegister_Click(object sender, EventArgs e)
@@ -35,13 +41,6 @@ namespace Project_App_Chat
         {
             PopupLogin popup = new PopupLogin();
             popup.Show();
-        }
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-            //tao connect voi server
-            ipServer = new IPEndPoint(IPAddress.Parse(Utils.GetLocalIPAddress()), int.Parse("2008"));
-            client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            client.Connect(ipServer);
         }
     }
 }

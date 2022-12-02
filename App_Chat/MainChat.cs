@@ -22,10 +22,19 @@ namespace Project_App_Chat
         {
             InitializeComponent();
 
+            CheckForIllegalCrossThreadCalls = false;
+
             //tao thread de nhan tin nhan
             threadReceive = new Thread(new ThreadStart(ResponeFromServer));
-            //threadReceive.IsBackground = true;
+            threadReceive.IsBackground = true;
             threadReceive.Start();
+
+            //gui goi tin lay cac user dang online
+            RequestAccountsOnline(MainForm.userName);
+            //gui goi tin lay cac group ma user dang login da join
+            RequestGroupsJoined(MainForm.userName);
+
+            labelUserLogin.Text = MainForm.userName;
         }
 
         #region Response From Server
@@ -65,7 +74,7 @@ namespace Project_App_Chat
 
                                 break;
                             }
-                        default:
+                        default: //nhan tin nhan giua cac client voi nhau
                             {
                                 var message = JsonSerializer.Deserialize<ClassLibrary.Message>(packetRes.content);
 
@@ -80,7 +89,7 @@ namespace Project_App_Chat
             }
             MainForm.client.Disconnect(true);
             MainForm.client.Close();
-        }
+        }       
         #endregion
 
         #region Load + Close Form
@@ -103,16 +112,7 @@ namespace Project_App_Chat
             };
 
             Utils.SendCommon(common, MainForm.client);
-        }
-        private void MainChat_Load(object sender, EventArgs e)
-        {
-            //gui goi tin lay cac user dang online
-            RequestAccountsOnline(MainForm.userName);
-            //gui goi tin lay cac group ma user dang login da join
-            RequestGroupsJoined(MainForm.userName);
-
-            labelUserLogin.Text = MainForm.userName;
-        }
+        }      
         private void MainChat_FormClosing(object sender, FormClosingEventArgs e)
         {
             Utils.KillThread(threadReceive);
