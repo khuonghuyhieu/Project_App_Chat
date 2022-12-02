@@ -15,7 +15,8 @@ namespace Project_App_Chat
     public partial class MainChat : Form
     {
         private Thread threadReceive;
-        private int oldSelectedIndex = -1;
+        private int oldSelectedIndexOnline = -1;
+        private int oldSelectedIndexGroup = -1;
 
         public MainChat()
         {
@@ -55,7 +56,7 @@ namespace Project_App_Chat
 
                                 break;
                             }
-                        case "groupJoinedRes":
+                        case "groupsJoinedRes":
                             {
                                 var groupJoined = JsonSerializer.Deserialize<IEnumerable<string>>(packetRes.content);
 
@@ -83,7 +84,7 @@ namespace Project_App_Chat
         #endregion
 
         #region Load + Close Form
-        private void RequestAccountOnline(string userName)
+        private void RequestAccountsOnline(string userName)
         {
             var common = new Common
             {
@@ -93,11 +94,11 @@ namespace Project_App_Chat
 
             Utils.SendCommon(common, MainForm.client);
         }
-        private void RequestGroupJoined(string userName)
+        private void RequestGroupsJoined(string userName)
         {
             var common = new Common
             {
-                kind = "getGroupJoined",
+                kind = "getGroupsJoined",
                 content = JsonSerializer.Serialize<string>(userName),
             };
 
@@ -106,9 +107,9 @@ namespace Project_App_Chat
         private void MainChat_Load(object sender, EventArgs e)
         {
             //gui goi tin lay cac user dang online
-            RequestAccountOnline(MainForm.userName);
+            RequestAccountsOnline(MainForm.userName);
             //gui goi tin lay cac group ma user dang login da join
-            RequestGroupJoined(MainForm.userName);
+            RequestGroupsJoined(MainForm.userName);
 
             labelUserLogin.Text = MainForm.userName;
         }
@@ -171,15 +172,23 @@ namespace Project_App_Chat
             txbKhungChat.AppendText(Environment.NewLine);
             txbChat.Clear();
         }
-
         private void listBoxOnline_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (oldSelectedIndex == listBoxOnline.SelectedIndex)
+            if (oldSelectedIndexOnline == listBoxOnline.SelectedIndex)
             {
                 listBoxOnline.ClearSelected();
             }
             else
-                oldSelectedIndex = listBoxOnline.SelectedIndex;
+                oldSelectedIndexOnline = listBoxOnline.SelectedIndex;
+        }
+        private void listBoxGroup_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (oldSelectedIndexGroup == listBoxGroup.SelectedIndex)
+            {
+                listBoxGroup.ClearSelected();
+            }
+            else
+                oldSelectedIndexGroup = listBoxGroup.SelectedIndex;
         }
     }
 }
