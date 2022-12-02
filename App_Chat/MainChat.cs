@@ -80,7 +80,7 @@ namespace Project_App_Chat
 
                                     break;
                                 }
-                            default: //nhan tin nhan giua cac client voi nhau
+                            default: //nhan tin nhan giua cac client + group voi nhau
                                 {
                                     var message = JsonSerializer.Deserialize<ClassLibrary.Message>(packetRes.content);
 
@@ -129,38 +129,42 @@ namespace Project_App_Chat
         #endregion
 
         #region Send Message
-        private void Chat()
+        private void Chat(string methodChat)
         {
+            if(methodChat.Equals(string.Empty))
+            {
+                MessageBox.Show("Vui lòng chọn đối tượng để gửi tin nhắn");
+
+                return;
+            }            
+
             var message = new ClassLibrary.Message
             {
                 Sender = MainForm.userName,
-                Receiver = listBoxOnline.GetItemText(listBoxOnline.SelectedItem), //user name
+                Receiver = methodChat.Equals("chatUserToUser") 
+                            ? listBoxOnline.GetItemText(listBoxOnline.SelectedItem)
+                            : listBoxGroup.GetItemText(listBoxGroup.SelectedItem), 
                 Content = txbChat.Text
             };
 
             var common = new Common
             {
-                kind = "chatUserToUser",
+                kind = methodChat,
                 content = JsonSerializer.Serialize(message)
             };
 
-            if (!message.Receiver.Equals(string.Empty))
-            {
-                Utils.SendCommon(common, MainForm.client);
+            Utils.SendCommon(common, MainForm.client);
 
+            if(listBoxOnline.SelectedItem != null)
                 AddMessage(message.Sender + ": " + message.Content);
-            }
-            else
-                MessageBox.Show("Vui lòng chọn user để gửi tin nhắn");
-
         }
         private void btnSend_Click(object sender, EventArgs e)
         {
-            //var methodChat = listBoxOnline.GetItemText(listBoxOnline.SelectedItem).Equals("")
-            //    ? listBoxGroup.GetItemText(listBoxGroup.SelectedItem)
-            //    : listBoxOnline.GetItemText(listBoxOnline.SelectedItem);
+            var methodChat = listBoxOnline.GetItemText(listBoxOnline.SelectedItem).Equals("") ?
+                listBoxGroup.GetItemText(listBoxGroup.SelectedItem).Equals("") ? string.Empty : "chatUserToGroup"
+                : "chatUserToUser";
 
-            Chat();
+            Chat(methodChat);
         }
         #endregion
 
@@ -194,7 +198,7 @@ namespace Project_App_Chat
             else
             {
                 oldSelectedIndexOnline = listBoxOnline.SelectedIndex;
-                
+
             }
 
             listBoxGroup.ClearSelected();
@@ -208,7 +212,7 @@ namespace Project_App_Chat
             else
             {
                 oldSelectedIndexGroup = listBoxGroup.SelectedIndex;
-                
+
             }
 
             listBoxOnline.ClearSelected();

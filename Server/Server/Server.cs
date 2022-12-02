@@ -30,7 +30,7 @@ namespace Server
             dsUsers.Add("user1", "123");
             dsUsers.Add("user2", "123");
             dsUsers.Add("user3", "123");
-            dsGroup.Add("GroupVy", new List<string> { "user1", "use2" });
+            dsGroup.Add("GroupVy", new List<string> { "user1", "user2", "user3" });
             dsGroup.Add("GroupTmp", new List<string> { "user3", "user4" });
             txbIp.Text = (Utils.GetLocalIPAddress());
 
@@ -137,6 +137,7 @@ namespace Server
                                     var accountOnlineReq = JsonSerializer.Deserialize<string>(common.content); //chi co user Name
                                     var accountOnlineRes = new Common();
                                     var accountsOnline = dsUsers.Keys.Where(item => !item.Equals(accountOnlineReq));
+                                    //var accountsOnline = dsSocketClient.Keys.Where(item => !item.Equals(accountOnlineReq));
 
                                     accountOnlineRes.kind = "accountsOnlineRes";
                                     accountOnlineRes.content = JsonSerializer.Serialize<IEnumerable<string>>(accountsOnline);
@@ -223,16 +224,20 @@ namespace Server
                                         
                                         socketReceiver.Send(reqClient, reqClient.Length, SocketFlags.None);                                       
                                         AddMessage(String.Format("{0} gui den {1}: {2}", messageReq.Sender, messageReq.Receiver, messageReq.Content));
-                                    }
+                                    }                                     
 
                                     break;
                                 }
                             case "chatUserToGroup":
                                 {
-                                    //client gui ca Group (1 gui - n nhan)
-                                    var packetReq = JsonSerializer.Deserialize<Message>(common.content);
-                                    var groupTarger = dsGroup.FirstOrDefault(item => item.Key.Equals(packetReq.Receiver, StringComparison.CurrentCultureIgnoreCase));
-                                    //var socketsTarget = dsSocketClient.
+                                    var messageReq = JsonSerializer.Deserialize<Message>(common.content);
+                                    var groupTarger = dsGroup.FirstOrDefault(item => item.Key.Equals(messageReq.Receiver, StringComparison.CurrentCultureIgnoreCase));
+                                    var socketsInGroup = dsSocketClient.Where(item => groupTarger.Value.Contains(item.Key));
+
+                                    foreach (var socket in socketsInGroup)
+                                    {
+                                        socket.Value.Send(reqClient, reqClient.Length, SocketFlags.None);
+                                    }
 
                                     break;
                                 }
