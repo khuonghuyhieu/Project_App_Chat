@@ -212,7 +212,7 @@ namespace Server
                                 }
                             case "chatUserToUser":
                                 {
-                                    var messageReq = JsonSerializer.Deserialize<Message>(common.content);
+                                    var messageReq = JsonSerializer.Deserialize<Message>(common.content);                                   
 
                                     if (dsSocketClient.Keys.Contains(messageReq.Receiver as string))
                                     {
@@ -220,7 +220,8 @@ namespace Server
                                         //var message = new byte[1024];
 
                                         //message = Encoding.ASCII.GetBytes(String.Format("{0}: {1}", messageReq.Sender, messageReq.Content));
-                                        socketReceiver.Send(reqClient, reqClient.Length, SocketFlags.None);
+                                        
+                                        socketReceiver.Send(reqClient, reqClient.Length, SocketFlags.None);                                       
                                         AddMessage(String.Format("{0} gui den {1}: {2}", messageReq.Sender, messageReq.Receiver, messageReq.Content));
                                     }
 

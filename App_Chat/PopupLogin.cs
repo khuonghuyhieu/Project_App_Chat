@@ -24,10 +24,8 @@ namespace Project_App_Chat
             threadReceive = new Thread(new ThreadStart(ResponeFromServer));
             threadReceive.IsBackground = true;
             threadReceive.Start();
-
+        
             //set cung test cho nhanh
-            txbIp.Text = Utils.GetLocalIPAddress();
-            txbPort.Text = "2008";
             txbUserName.Text = "user1";
             txbPassword.Text = "123";            
         }

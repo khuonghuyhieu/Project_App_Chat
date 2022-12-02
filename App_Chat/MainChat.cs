@@ -42,54 +42,61 @@ namespace Project_App_Chat
         {
             while (true)
             {
-                var receiverMessage = new byte[1024];
-                var bytesReceiver = MainForm.client.Receive(receiverMessage);
+                var byteRes = new byte[1024];
+                var bytesReceiver = MainForm.client.Receive(byteRes);
 
                 if (bytesReceiver == 0)
                     continue;
 
-                var originalMessage = Encoding.ASCII.GetString(receiverMessage, 0, bytesReceiver);
-                originalMessage = Utils.ClearJson(originalMessage);
-                var packetRes = JsonSerializer.Deserialize<Common>(originalMessage);
+                dynamic originRes = Encoding.ASCII.GetString(byteRes, 0, bytesReceiver);
+                originRes = Utils.ClearJson(originRes);
+                originRes = Utils.SplitCommon(originRes); //truong hop server tra ve 2 goi tin cung luc
 
-                if (packetRes != null && packetRes.content != null)
+                foreach (var res in originRes)
                 {
-                    switch (packetRes.kind)
+                    var packetRes = JsonSerializer.Deserialize<Common>(res);
+
+                    if (packetRes != null && packetRes.content != null)
                     {
-                        case "accountsOnlineRes":
-                            {
-                                var accountsOnline = JsonSerializer.Deserialize<IEnumerable<string>>(packetRes.content);
+                        switch (packetRes.kind)
+                        {
+                            case "accountsOnlineRes":
+                                {
+                                    var accountsOnline = JsonSerializer.Deserialize<IEnumerable<string>>(packetRes.content);
 
-                                listBoxOnline.DataSource = accountsOnline;
-                                listBoxOnline.ClearSelected();
+                                    listBoxOnline.DataSource = accountsOnline;
+                                    listBoxOnline.ClearSelected();
 
-                                break;
-                            }
-                        case "groupsJoinedRes":
-                            {
-                                var groupJoined = JsonSerializer.Deserialize<IEnumerable<string>>(packetRes.content);
+                                    break;
+                                }
+                            case "groupsJoinedRes":
+                                {
+                                    var groupJoined = JsonSerializer.Deserialize<IEnumerable<string>>(packetRes.content);
 
-                                listBoxGroup.DataSource = groupJoined;
-                                listBoxGroup.ClearSelected();
+                                    listBoxGroup.DataSource = groupJoined;
+                                    listBoxGroup.ClearSelected();
 
-                                break;
-                            }
-                        default: //nhan tin nhan giua cac client voi nhau
-                            {
-                                var message = JsonSerializer.Deserialize<ClassLibrary.Message>(packetRes.content);
+                                    break;
+                                }
+                            default: //nhan tin nhan giua cac client voi nhau
+                                {
+                                    var message = JsonSerializer.Deserialize<ClassLibrary.Message>(packetRes.content);
 
-                                if (message != null)
-                                    AddMessage(message.Sender + ": " + message.Content);
+                                    if (message != null)
+                                        AddMessage(message.Sender + ": " + message.Content);
 
-                                break;
-                            }
+                                    break;
+                                }
 
+                        }
                     }
                 }
+
+
             }
             MainForm.client.Disconnect(true);
             MainForm.client.Close();
-        }       
+        }
         #endregion
 
         #region Load + Close Form
@@ -112,7 +119,7 @@ namespace Project_App_Chat
             };
 
             Utils.SendCommon(common, MainForm.client);
-        }      
+        }
         private void MainChat_FormClosing(object sender, FormClosingEventArgs e)
         {
             Utils.KillThread(threadReceive);
@@ -143,7 +150,7 @@ namespace Project_App_Chat
             }
             else
                 MessageBox.Show("Vui lòng chọn user để gửi tin nhắn");
-           
+
         }
         private void btnSend_Click(object sender, EventArgs e)
         {

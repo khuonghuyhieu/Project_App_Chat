@@ -24,11 +24,13 @@ namespace Project_App_Chat
 
             CheckForIllegalCrossThreadCalls = false;
 
+            txbIp.Text = Utils.GetLocalIPAddress();
+            txbPort.Text = "2008";
+
             //tao connect voi server
-            ipServer = new IPEndPoint(IPAddress.Parse(Utils.GetLocalIPAddress()), int.Parse("2008"));
-            //ipServer = new IPEndPoint(IPAddress.Parse("192.168.235.1"), int.Parse("2008"));
+            ipServer = new IPEndPoint(IPAddress.Parse(txbIp.Text), int.Parse(txbPort.Text));
             client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            client.Connect(ipServer);
+            client.Connect(MainForm.ipServer);
         }
 
         private void btnRegister_Click(object sender, EventArgs e)

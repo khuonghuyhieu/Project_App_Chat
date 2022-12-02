@@ -48,5 +48,18 @@ namespace ClassLibrary
             //return json.Replace("\\u0022", "\"");
             return json.Replace("\0", "");
         }
+        public static IEnumerable<string> SplitCommon(string reponses)
+        {
+            foreach (var item in reponses)
+            {
+                if (item == '}' && (reponses.ElementAt(reponses.IndexOf(item) + 1) == '{'))
+                    reponses = reponses.Insert(reponses.IndexOf(item) + 1, "|");
+            }
+
+            var result = reponses.Split('|').ToList();
+            result.Remove("");
+
+            return result;
+        }
     }
 }
