@@ -18,6 +18,8 @@ namespace Project_App_Chat
         private int oldSelectedIndexOnline = -1;
         private int oldSelectedIndexGroup = -1;
 
+        bool tmp = false;
+
         public MainChat()
         {
             InitializeComponent();
@@ -154,6 +156,10 @@ namespace Project_App_Chat
         }
         private void btnSend_Click(object sender, EventArgs e)
         {
+            //var methodChat = listBoxOnline.GetItemText(listBoxOnline.SelectedItem).Equals("")
+            //    ? listBoxGroup.GetItemText(listBoxGroup.SelectedItem)
+            //    : listBoxOnline.GetItemText(listBoxOnline.SelectedItem);
+
             Chat();
         }
         #endregion
@@ -179,23 +185,33 @@ namespace Project_App_Chat
             txbKhungChat.AppendText(Environment.NewLine);
             txbChat.Clear();
         }
-        private void listBoxOnline_SelectedIndexChanged(object sender, EventArgs e)
+        private void listBoxOnline_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             if (oldSelectedIndexOnline == listBoxOnline.SelectedIndex)
             {
                 listBoxOnline.ClearSelected();
             }
             else
+            {
                 oldSelectedIndexOnline = listBoxOnline.SelectedIndex;
+                
+            }
+
+            listBoxGroup.ClearSelected();
         }
-        private void listBoxGroup_SelectedIndexChanged(object sender, EventArgs e)
+        private void listBoxGroup_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             if (oldSelectedIndexGroup == listBoxGroup.SelectedIndex)
             {
                 listBoxGroup.ClearSelected();
             }
             else
+            {
                 oldSelectedIndexGroup = listBoxGroup.SelectedIndex;
+                
+            }
+
+            listBoxOnline.ClearSelected();
         }
     }
 }
