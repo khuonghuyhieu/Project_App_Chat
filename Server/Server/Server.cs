@@ -30,7 +30,7 @@ namespace Server
             dsUsers.Add("user1", "123");
             dsUsers.Add("user2", "123");
             dsUsers.Add("user3", "123");
-            dsGroup.Add("GroupVy", new List<string> { "user1", "use2" });
+            dsGroup.Add("GroupVy", new List<string> { "user1", "use2","user3" });
             dsGroup.Add("GroupTmp", new List<string> { "user3", "user4" });
             txbIp.Text = (Utils.GetLocalIPAddress());
 
