@@ -147,7 +147,7 @@
             this.listBoxOnline.Name = "listBoxOnline";
             this.listBoxOnline.Size = new System.Drawing.Size(308, 289);
             this.listBoxOnline.TabIndex = 0;
-            this.listBoxOnline.SelectedIndexChanged += new System.EventHandler(this.listBoxOnline_SelectedIndexChanged);
+            this.listBoxOnline.SelectedIndexChanged += new System.EventHandler(this.listBoxOnline_SelectedIndexChanged_1);
             // 
             // tabPage2
             // 
@@ -210,7 +210,7 @@
             this.listBoxGroup.Name = "listBoxGroup";
             this.listBoxGroup.Size = new System.Drawing.Size(308, 154);
             this.listBoxGroup.TabIndex = 1;
-            this.listBoxGroup.SelectedIndexChanged += new System.EventHandler(this.listBoxGroup_SelectedIndexChanged);
+            this.listBoxGroup.SelectedIndexChanged += new System.EventHandler(this.listBoxGroup_SelectedIndexChanged_1);
             // 
             // label4
             // 
