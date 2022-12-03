@@ -46,3 +46,15 @@ D:\SGU\HK7\LapTrinhMang\UIHuyHieu\Project_App_Chat\ClassLibrary\obj\Debug\net6.0
 D:\SGU\HK7\LapTrinhMang\UIHuyHieu\Project_App_Chat\ClassLibrary\obj\Debug\net6.0\refint\ClassLibrary.dll
 D:\SGU\HK7\LapTrinhMang\UIHuyHieu\Project_App_Chat\ClassLibrary\obj\Debug\net6.0\ClassLibrary.pdb
 D:\SGU\HK7\LapTrinhMang\UIHuyHieu\Project_App_Chat\ClassLibrary\obj\Debug\net6.0\ref\ClassLibrary.dll
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\ClassLibrary\bin\Debug\net6.0\ClassLibrary.deps.json
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\ClassLibrary\bin\Debug\net6.0\ClassLibrary.dll
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\ClassLibrary\bin\Debug\net6.0\ClassLibrary.pdb
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\ClassLibrary\obj\Debug\net6.0\ClassLibrary.csproj.AssemblyReference.cache
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\ClassLibrary\obj\Debug\net6.0\ClassLibrary.GeneratedMSBuildEditorConfig.editorconfig
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\ClassLibrary\obj\Debug\net6.0\ClassLibrary.AssemblyInfoInputs.cache
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\ClassLibrary\obj\Debug\net6.0\ClassLibrary.AssemblyInfo.cs
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\ClassLibrary\obj\Debug\net6.0\ClassLibrary.csproj.CoreCompileInputs.cache
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\ClassLibrary\obj\Debug\net6.0\ClassLibrary.dll
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\ClassLibrary\obj\Debug\net6.0\refint\ClassLibrary.dll
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\ClassLibrary\obj\Debug\net6.0\ClassLibrary.pdb
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\ClassLibrary\obj\Debug\net6.0\ref\ClassLibrary.dll
