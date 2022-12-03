@@ -38,6 +38,7 @@ D:\SGU\HK7\LapTrinhMang\CuoiKy\Server\Server\obj\Debug\net6.0-windows\refint\Ser
 D:\SGU\HK7\LapTrinhMang\CuoiKy\Server\Server\obj\Debug\net6.0-windows\Server.pdb
 D:\SGU\HK7\LapTrinhMang\CuoiKy\Server\Server\obj\Debug\net6.0-windows\Server.genruntimeconfig.cache
 D:\SGU\HK7\LapTrinhMang\CuoiKy\Server\Server\obj\Debug\net6.0-windows\ref\Server.dll
+<<<<<<< HEAD
 D:\SGU\HK7\LapTrinhMang\UIHuyHieu\Project_App_Chat\Server\Server\bin\Debug\net6.0-windows\Server.exe
 D:\SGU\HK7\LapTrinhMang\UIHuyHieu\Project_App_Chat\Server\Server\bin\Debug\net6.0-windows\Server.deps.json
 D:\SGU\HK7\LapTrinhMang\UIHuyHieu\Project_App_Chat\Server\Server\bin\Debug\net6.0-windows\Server.runtimeconfig.json
@@ -80,3 +81,5 @@ E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\Server\Server\obj\Debu
 E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\Server\Server\obj\Debug\net6.0-windows\Server.pdb
 E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\Server\Server\obj\Debug\net6.0-windows\Server.genruntimeconfig.cache
 E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\Server\Server\obj\Debug\net6.0-windows\ref\Server.dll
+=======
+>>>>>>> afb777e (connect-db)

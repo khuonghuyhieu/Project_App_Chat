@@ -1,8 +1,11 @@
 ﻿using ClassLibrary;
+using Models.Data;
+using Service;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Text.Json;
+using Group = ClassLibrary.Group;
 using Message = ClassLibrary.Message;
 
 namespace Server
@@ -12,6 +15,11 @@ namespace Server
         Socket server;
         IPEndPoint ipServer;
         Thread threadReceive;
+
+        AppChatContext _context;
+
+       
+
         Dictionary<string, string> dsUsers; //userName: password
         Dictionary<string, Socket> dsSocketClient; //userName : socket
         Dictionary<string, List<string>> dsGroup; //groupName: list<userName>
@@ -34,9 +42,11 @@ namespace Server
             dsGroup.Add("GroupTmp", new List<string> { "user3", "user4" });
             txbIp.Text = (Utils.GetLocalIPAddress());
 
+            _context = new AppChatContext();
+           
+
             //Mở kết nối cho Server để chuẩn bị lắng nghe các Client
             StartServer();
-
             //tao thread de start server
             threadReceive = new Thread(new ThreadStart(ThreadStartServer));
             threadReceive.IsBackground = true;
@@ -213,7 +223,7 @@ namespace Server
                                 }
                             case "chatUserToUser":
                                 {
-                                    var messageReq = JsonSerializer.Deserialize<Message>(common.content);                                   
+                                    var messageReq = JsonSerializer.Deserialize<Message>(common.content);
 
                                     if (dsSocketClient.Keys.Contains(messageReq.Receiver as string))
                                     {
@@ -221,10 +231,10 @@ namespace Server
                                         //var message = new byte[1024];
 
                                         //message = Encoding.ASCII.GetBytes(String.Format("{0}: {1}", messageReq.Sender, messageReq.Content));
-                                        
-                                        socketReceiver.Send(reqClient, reqClient.Length, SocketFlags.None);                                       
+
+                                        socketReceiver.Send(reqClient, reqClient.Length, SocketFlags.None);
                                         AddMessage(String.Format("{0} gui den {1}: {2}", messageReq.Sender, messageReq.Receiver, messageReq.Content));
-                                    }                                     
+                                    }
 
                                     break;
                                 }

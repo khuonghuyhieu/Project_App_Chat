@@ -77,6 +77,7 @@ namespace Project_App_Chat
                                     Program.mainForm.Hide();
 
                                     this.Close();
+                                    Utils.KillThread(threadReceive);
 
                                     var mainChat = new MainChat();
                                     mainChat.ShowDialog();
@@ -97,10 +98,5 @@ namespace Project_App_Chat
             MainForm.client.Close();
         }    
         #endregion
-
-        private void PopupLogin_FormClosing(object sender, FormClosingEventArgs e)
-        {
-           Utils.KillThread(threadReceive);
-        }
     }
 }

@@ -862,20 +862,6 @@
         "runtime": {
           "bin/placeholder/DTO.dll": {}
         }
-      },
-      "Models/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
-        "dependencies": {
-          "DTO": "1.0.0",
-          "Microsoft.EntityFrameworkCore.SqlServer": "7.0.0"
-        },
-        "compile": {
-          "bin/placeholder/Models.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Models.dll": {}
-        }
       }
     }
   },
@@ -3050,16 +3036,12 @@
       "type": "project",
       "path": "../DTO/DTO.csproj",
       "msbuildProject": "../DTO/DTO.csproj"
-    },
-    "Models/1.0.0": {
-      "type": "project",
-      "path": "../Models/Models.csproj",
-      "msbuildProject": "../Models/Models.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
-      "Models >= 1.0.0"
+      "DTO >= 1.0.0",
+      "Microsoft.EntityFrameworkCore.SqlServer >= 7.0.0"
     ]
   },
   "packageFolders": {
@@ -3068,11 +3050,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\SGU\\HK7\\LapTrinhMang\\UIHuyHieu\\Project_App_Chat\\Service\\Service.csproj",
-      "projectName": "Service",
-      "projectPath": "D:\\SGU\\HK7\\LapTrinhMang\\UIHuyHieu\\Project_App_Chat\\Service\\Service.csproj",
+      "projectUniqueName": "D:\\SGU\\HK7\\LapTrinhMang\\UIHuyHieu\\Project_App_Chat\\Models\\Models.csproj",
+      "projectName": "Models",
+      "projectPath": "D:\\SGU\\HK7\\LapTrinhMang\\UIHuyHieu\\Project_App_Chat\\Models\\Models.csproj",
       "packagesPath": "C:\\Users\\nhatv\\.nuget\\packages\\",
-      "outputPath": "D:\\SGU\\HK7\\LapTrinhMang\\UIHuyHieu\\Project_App_Chat\\Service\\obj\\",
+      "outputPath": "D:\\SGU\\HK7\\LapTrinhMang\\UIHuyHieu\\Project_App_Chat\\Models\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\nhatv\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -3089,8 +3071,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\SGU\\HK7\\LapTrinhMang\\UIHuyHieu\\Project_App_Chat\\Models\\Models.csproj": {
-              "projectPath": "D:\\SGU\\HK7\\LapTrinhMang\\UIHuyHieu\\Project_App_Chat\\Models\\Models.csproj"
+            "D:\\SGU\\HK7\\LapTrinhMang\\UIHuyHieu\\Project_App_Chat\\DTO\\DTO.csproj": {
+              "projectPath": "D:\\SGU\\HK7\\LapTrinhMang\\UIHuyHieu\\Project_App_Chat\\DTO\\DTO.csproj"
             }
           }
         }
@@ -3104,6 +3086,12 @@
     "frameworks": {
       "net6.0": {
         "targetAlias": "net6.0",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.SqlServer": {
+            "target": "Package",
+            "version": "[7.0.0, )"
+          }
+        },
         "imports": [
           "net461",
           "net462",

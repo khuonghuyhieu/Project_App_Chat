@@ -130,7 +130,6 @@
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "PopupLogin";
             this.Text = "PopupLogin";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PopupLogin_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

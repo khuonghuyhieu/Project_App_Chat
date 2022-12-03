@@ -100,10 +100,6 @@ namespace Project_App_Chat
         }
         #endregion
 
-        private void PopupRegister_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            Utils.KillThread(threadReceive);
-        }
     }
 
 
