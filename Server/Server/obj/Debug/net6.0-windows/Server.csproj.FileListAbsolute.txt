@@ -59,3 +59,24 @@ D:\SGU\HK7\LapTrinhMang\UIHuyHieu\Project_App_Chat\Server\Server\obj\Debug\net6.
 D:\SGU\HK7\LapTrinhMang\UIHuyHieu\Project_App_Chat\Server\Server\obj\Debug\net6.0-windows\Server.pdb
 D:\SGU\HK7\LapTrinhMang\UIHuyHieu\Project_App_Chat\Server\Server\obj\Debug\net6.0-windows\Server.genruntimeconfig.cache
 D:\SGU\HK7\LapTrinhMang\UIHuyHieu\Project_App_Chat\Server\Server\obj\Debug\net6.0-windows\ref\Server.dll
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\Server\Server\bin\Debug\net6.0-windows\Server.exe
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\Server\Server\bin\Debug\net6.0-windows\Server.deps.json
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\Server\Server\bin\Debug\net6.0-windows\Server.runtimeconfig.json
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\Server\Server\bin\Debug\net6.0-windows\Server.dll
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\Server\Server\bin\Debug\net6.0-windows\Server.pdb
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\Server\Server\bin\Debug\net6.0-windows\Speckle.Newtonsoft.Json.dll
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\Server\Server\bin\Debug\net6.0-windows\ClassLibrary.dll
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\Server\Server\bin\Debug\net6.0-windows\ClassLibrary.pdb
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\Server\Server\obj\Debug\net6.0-windows\Server.csproj.AssemblyReference.cache
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\Server\Server\obj\Debug\net6.0-windows\Server.ServerForm.resources
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\Server\Server\obj\Debug\net6.0-windows\Server.csproj.GenerateResource.cache
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\Server\Server\obj\Debug\net6.0-windows\Server.GeneratedMSBuildEditorConfig.editorconfig
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\Server\Server\obj\Debug\net6.0-windows\Server.AssemblyInfoInputs.cache
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\Server\Server\obj\Debug\net6.0-windows\Server.AssemblyInfo.cs
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\Server\Server\obj\Debug\net6.0-windows\Server.csproj.CoreCompileInputs.cache
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\Server\Server\obj\Debug\net6.0-windows\Server.csproj.CopyComplete
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\Server\Server\obj\Debug\net6.0-windows\Server.dll
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\Server\Server\obj\Debug\net6.0-windows\refint\Server.dll
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\Server\Server\obj\Debug\net6.0-windows\Server.pdb
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\Server\Server\obj\Debug\net6.0-windows\Server.genruntimeconfig.cache
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\Server\Server\obj\Debug\net6.0-windows\ref\Server.dll

@@ -5,10 +5,14 @@
       "Newtonsoft.Json/12.0.1": {
         "type": "package",
         "compile": {
-          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {
+            "related": ".pdb;.xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {
+            "related": ".pdb;.xml"
+          }
         }
       },
       "Newtonsoft.Json.Bson/1.0.2": {
@@ -17,10 +21,14 @@
           "Newtonsoft.Json": "12.0.1"
         },
         "compile": {
-          "lib/netstandard2.0/Newtonsoft.Json.Bson.dll": {}
+          "lib/netstandard2.0/Newtonsoft.Json.Bson.dll": {
+            "related": ".pdb;.xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/Newtonsoft.Json.Bson.dll": {}
+          "lib/netstandard2.0/Newtonsoft.Json.Bson.dll": {
+            "related": ".pdb;.xml"
+          }
         }
       },
       "ClassLibrary/1.0.0": {
@@ -109,34 +117,40 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\nhatv\\.nuget\\packages\\": {}
+    "C:\\Users\\khuon\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\SGU\\HK7\\LapTrinhMang\\UIHuyHieu\\Project_App_Chat\\App_Chat\\App_Chat.csproj",
+      "projectUniqueName": "E:\\SGU\\HK1_2022-2023\\Lập trình mạng\\Project_App_Chat\\App_Chat\\App_Chat.csproj",
       "projectName": "App_Chat",
-      "projectPath": "D:\\SGU\\HK7\\LapTrinhMang\\UIHuyHieu\\Project_App_Chat\\App_Chat\\App_Chat.csproj",
-      "packagesPath": "C:\\Users\\nhatv\\.nuget\\packages\\",
-      "outputPath": "D:\\SGU\\HK7\\LapTrinhMang\\UIHuyHieu\\Project_App_Chat\\App_Chat\\obj\\",
+      "projectPath": "E:\\SGU\\HK1_2022-2023\\Lập trình mạng\\Project_App_Chat\\App_Chat\\App_Chat.csproj",
+      "packagesPath": "C:\\Users\\khuon\\.nuget\\packages\\",
+      "outputPath": "E:\\SGU\\HK1_2022-2023\\Lập trình mạng\\Project_App_Chat\\App_Chat\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\nhatv\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\khuon\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "net6.0-windows7.0"
+        "net6.0-windows"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
           "projectReferences": {
-            "D:\\SGU\\HK7\\LapTrinhMang\\UIHuyHieu\\Project_App_Chat\\ClassLibrary\\ClassLibrary.csproj": {
-              "projectPath": "D:\\SGU\\HK7\\LapTrinhMang\\UIHuyHieu\\Project_App_Chat\\ClassLibrary\\ClassLibrary.csproj"
+            "E:\\SGU\\HK1_2022-2023\\Lập trình mạng\\Project_App_Chat\\ClassLibrary\\ClassLibrary.csproj": {
+              "projectPath": "E:\\SGU\\HK1_2022-2023\\Lập trình mạng\\Project_App_Chat\\ClassLibrary\\ClassLibrary.csproj"
             }
           }
         }
@@ -162,7 +176,8 @@
           "net47",
           "net471",
           "net472",
-          "net48"
+          "net48",
+          "net481"
         ],
         "assetTargetFallback": true,
         "warn": true,
@@ -174,7 +189,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
       }
     }
   }

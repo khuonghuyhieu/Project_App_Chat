@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "kM12Qwg28va9e/99KJMomNF8C2APEJcJtR/JYRZofyI6TsjoEInIVBbopWj6UmmAkz73empM5V5ahPtxn/S5qg==",
+  "dgSpecHash": "oH2aFjAZULRGb4ugd0lAnKxeKRS/nXEtJ47U5X6YA8YF/25b9+dMjL4TNjcFsKpXQqNeaP8JnAB78oDp4EbxyA==",
   "success": true,
-  "projectFilePath": "D:\\SGU\\HK7\\LapTrinhMang\\UIHuyHieu\\Project_App_Chat\\Client\\Client6\\Client.csproj",
+  "projectFilePath": "E:\\SGU\\HK1_2022-2023\\Lập trình mạng\\Project_App_Chat\\Client\\Client6\\Client.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\nhatv\\.nuget\\packages\\speckle.newtonsoft.json\\12.0.3.1\\speckle.newtonsoft.json.12.0.3.1.nupkg.sha512"
+    "C:\\Users\\khuon\\.nuget\\packages\\speckle.newtonsoft.json\\12.0.3.1\\speckle.newtonsoft.json.12.0.3.1.nupkg.sha512"
   ],
   "logs": []
 }

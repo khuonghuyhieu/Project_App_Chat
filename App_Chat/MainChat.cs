@@ -37,6 +37,8 @@ namespace Project_App_Chat
             RequestGroupsJoined(MainForm.userName);
 
             labelUserLogin.Text = MainForm.userName;
+
+            listView1.Hide();
         }
 
         #region Response From Server
@@ -131,19 +133,19 @@ namespace Project_App_Chat
         #region Send Message
         private void Chat(string methodChat)
         {
-            if(methodChat.Equals(string.Empty))
+            if (methodChat.Equals(string.Empty))
             {
                 MessageBox.Show("Vui lòng chọn đối tượng để gửi tin nhắn");
 
                 return;
-            }            
+            }
 
             var message = new ClassLibrary.Message
             {
                 Sender = MainForm.userName,
-                Receiver = methodChat.Equals("chatUserToUser") 
+                Receiver = methodChat.Equals("chatUserToUser")
                             ? listBoxOnline.GetItemText(listBoxOnline.SelectedItem)
-                            : listBoxGroup.GetItemText(listBoxGroup.SelectedItem), 
+                            : listBoxGroup.GetItemText(listBoxGroup.SelectedItem),
                 Content = txbChat.Text
             };
 
@@ -155,7 +157,7 @@ namespace Project_App_Chat
 
             Utils.SendCommon(common, MainForm.client);
 
-            if(listBoxOnline.SelectedItem != null)
+            if (listBoxOnline.SelectedItem != null)
                 AddMessage(message.Sender + ": " + message.Content);
         }
         private void btnSend_Click(object sender, EventArgs e)
@@ -216,6 +218,27 @@ namespace Project_App_Chat
             }
 
             listBoxOnline.ClearSelected();
+        }
+
+        private void btnIcon_Click(object sender, EventArgs e)
+        {
+            if (listView1.IsAccessible)
+            {
+                listView1.Hide();
+                listView1.IsAccessible = false;
+            }
+               
+            else
+            {
+                listView1.Show();
+                listView1.IsAccessible = true;
+            }
+               
+        }
+
+        private void listView1_Click_1(object sender, EventArgs e)
+        {
+            txbChat.AppendText(listView1.SelectedItems[0].Text);
         }
     }
 }

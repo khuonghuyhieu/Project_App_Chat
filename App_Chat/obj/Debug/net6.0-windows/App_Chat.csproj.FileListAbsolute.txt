@@ -25,3 +25,30 @@ D:\SGU\HK7\LapTrinhMang\UIHuyHieu\Project_App_Chat\App_Chat\obj\Debug\net6.0-win
 D:\SGU\HK7\LapTrinhMang\UIHuyHieu\Project_App_Chat\App_Chat\obj\Debug\net6.0-windows\App_Chat.genruntimeconfig.cache
 D:\SGU\HK7\LapTrinhMang\UIHuyHieu\Project_App_Chat\App_Chat\obj\Debug\net6.0-windows\ref\App_Chat.dll
 D:\SGU\HK7\LapTrinhMang\UIHuyHieu\Project_App_Chat\App_Chat\obj\Debug\net6.0-windows\App_Chat.Properties.Resources.resources
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\App_Chat\bin\Debug\net6.0-windows\App_Chat.exe
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\App_Chat\bin\Debug\net6.0-windows\App_Chat.deps.json
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\App_Chat\bin\Debug\net6.0-windows\App_Chat.runtimeconfig.json
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\App_Chat\bin\Debug\net6.0-windows\App_Chat.dll
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\App_Chat\bin\Debug\net6.0-windows\App_Chat.pdb
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\App_Chat\bin\Debug\net6.0-windows\Newtonsoft.Json.dll
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\App_Chat\bin\Debug\net6.0-windows\Newtonsoft.Json.Bson.dll
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\App_Chat\bin\Debug\net6.0-windows\ClassLibrary.dll
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\App_Chat\bin\Debug\net6.0-windows\ClassLibrary.pdb
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\App_Chat\obj\Debug\net6.0-windows\App_Chat.csproj.AssemblyReference.cache
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\App_Chat\obj\Debug\net6.0-windows\App_Chat.Form1.resources
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\App_Chat\obj\Debug\net6.0-windows\Project_App_Chat.MainChat.resources
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\App_Chat\obj\Debug\net6.0-windows\Project_App_Chat.MainForm.resources
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\App_Chat\obj\Debug\net6.0-windows\Project_App_Chat.PopupLogin.resources
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\App_Chat\obj\Debug\net6.0-windows\Project_App_Chat.PopupRegister.resources
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\App_Chat\obj\Debug\net6.0-windows\App_Chat.Properties.Resources.resources
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\App_Chat\obj\Debug\net6.0-windows\App_Chat.csproj.GenerateResource.cache
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\App_Chat\obj\Debug\net6.0-windows\App_Chat.GeneratedMSBuildEditorConfig.editorconfig
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\App_Chat\obj\Debug\net6.0-windows\App_Chat.AssemblyInfoInputs.cache
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\App_Chat\obj\Debug\net6.0-windows\App_Chat.AssemblyInfo.cs
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\App_Chat\obj\Debug\net6.0-windows\App_Chat.csproj.CoreCompileInputs.cache
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\App_Chat\obj\Debug\net6.0-windows\App_Chat.csproj.CopyComplete
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\App_Chat\obj\Debug\net6.0-windows\App_Chat.dll
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\App_Chat\obj\Debug\net6.0-windows\refint\App_Chat.dll
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\App_Chat\obj\Debug\net6.0-windows\App_Chat.pdb
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\App_Chat\obj\Debug\net6.0-windows\App_Chat.genruntimeconfig.cache
+E:\SGU\HK1_2022-2023\Lập trình mạng\Project_App_Chat\App_Chat\obj\Debug\net6.0-windows\ref\App_Chat.dll
