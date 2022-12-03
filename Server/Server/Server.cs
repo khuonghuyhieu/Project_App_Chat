@@ -12,6 +12,9 @@ namespace Server
         Socket server;
         IPEndPoint ipServer;
         Thread threadReceive;
+
+
+
         Dictionary<string, string> dsUsers; //userName: password
         Dictionary<string, Socket> dsSocketClient; //userName : socket
         Dictionary<string, List<string>> dsGroup; //groupName: list<userName>
@@ -36,7 +39,6 @@ namespace Server
 
             //Mở kết nối cho Server để chuẩn bị lắng nghe các Client
             StartServer();
-
             //tao thread de start server
             threadReceive = new Thread(new ThreadStart(ThreadStartServer));
             threadReceive.IsBackground = true;

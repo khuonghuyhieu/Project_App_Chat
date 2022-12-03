@@ -1,3 +1,24 @@
 
 # dependencies
 /.vs
+
+/App_Chat/bin
+/App_Chat/obj
+
+/ClassLibrary/bin
+/ClassLibrary/obj
+
+/DTO/obj
+/DTO/DTO.csproj
+
+/Models/obj
+/Models/efpt.config.json
+/Models/Models.csproj
+
+/Server/Server/bin
+Server/Server/obj
+
+/Service/obj
+/Service/Service.csproj
+
+Project_App_Chat.sln
