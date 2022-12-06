@@ -9,16 +9,16 @@
 /ClassLibrary/obj
 
 /DTO/obj
-/DTO/DTO.csproj
+/DTO/bin
 
 /Models/obj
+/Models/bin
 /Models/efpt.config.json
-/Models/Models.csproj
+
 
 /Server/Server/bin
 Server/Server/obj
 
 /Service/obj
-/Service/Service.csproj
+/Service/bin
 
-Project_App_Chat.sln
