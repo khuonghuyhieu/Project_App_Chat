@@ -26,7 +26,7 @@ namespace Project_App_Chat
             threadReceive.Start();
         
             //set cung test cho nhanh
-            txbUserName.Text = "user1";
+            txbUserName.Text = "vytruong";
             txbPassword.Text = "123";            
         }
 

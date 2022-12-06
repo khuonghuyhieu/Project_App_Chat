@@ -1,4 +1,7 @@
 ﻿using ClassLibrary;
+using DTO;
+using Models.Data;
+using Service;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -13,6 +16,12 @@ namespace Server
         IPEndPoint ipServer;
         Thread threadReceive;
 
+        AppChatContext _context;
+
+        AccountSvc _accountSvc;
+        GroupSvc _groupSvc;
+        MessageGroupSvc _messageGroupSvc;
+        MessageUserSvc _messageUserSvc;
 
 
         Dictionary<string, string> dsUsers; //userName: password
@@ -28,6 +37,12 @@ namespace Server
             dsUsers = new Dictionary<string, string>();
             dsSocketClient = new Dictionary<string, Socket>();
             dsGroup = new Dictionary<string, List<string>>();
+
+            _context = new AppChatContext();
+            _accountSvc = new AccountSvc(_context);
+            _groupSvc = new GroupSvc(_context);
+            _messageGroupSvc = new MessageGroupSvc(_context);
+            _messageUserSvc = new MessageUserSvc(_context);
 
             //set cung cac gia tri
             dsUsers.Add("user1", "123");
@@ -89,7 +104,7 @@ namespace Server
         #endregion
 
         #region Nhan thong tin Client gui den
-        private void ThreadClient(Socket client)
+        private async void ThreadClient(Socket client)
         {
             try
             {
@@ -111,62 +126,30 @@ namespace Server
                         {
                             case "register":
                                 {
-                                    var registerReq = JsonSerializer.Deserialize<Login>(common.content);
+                                    var registerReq = JsonSerializer.Deserialize<Register>(common.content);
                                     var registerRes = new Common();
 
                                     registerRes.kind = "registerRes";
 
-                                    if (!dsUsers.Keys.Any(item => item.Equals(registerReq.userName)))
+                                    if (!await _accountSvc.IsAccountExits(registerReq.userName))
                                     {
-                                        dsUsers.Remove(registerReq.userName);
-                                        dsUsers.Add(registerReq.userName, registerReq.password);
+                                        var accountDto = new AccountDto
+                                        {
+                                            UserName = registerReq.userName,
+                                            Password = registerReq.password,
+                                            FullName = registerReq.fullName,
+                                        };
+
+                                        await _accountSvc.AddAccount(accountDto);
 
                                         registerRes.content = "registerSuccessful";
                                         Utils.SendCommon(registerRes, client);
-
-                                        AddMessage(String.Format("{0} Regitered Successful", registerReq.userName));
                                     }
                                     else
                                     {
                                         registerRes.content = "userNameIsExits";
                                         Utils.SendCommon(registerRes, client);
                                     }
-
-                                    break;
-                                }
-                            case "getAccountsOnline":
-                                {
-                                    var accountOnlineReq = JsonSerializer.Deserialize<string>(common.content); //chi co user Name
-                                    var accountOnlineRes = new Common();
-                                    var accountsOnline = dsUsers.Keys.Where(item => !item.Equals(accountOnlineReq));
-                                    //var accountsOnline = dsSocketClient.Keys.Where(item => !item.Equals(accountOnlineReq));
-
-                                    accountOnlineRes.kind = "accountsOnlineRes";
-                                    accountOnlineRes.content = JsonSerializer.Serialize<IEnumerable<string>>(accountsOnline);
-
-                                    Utils.SendCommon(accountOnlineRes, client);
-
-                                    break;
-                                }
-                            case "getGroupsJoined":
-                                {
-                                    var groupJoinedReq = JsonSerializer.Deserialize<string>(common.content); //chi co user Name
-                                    var groupJoinRes = new Common();
-                                    var groupJoined = new List<string>();
-
-                                    foreach (var item in dsGroup)
-                                    {
-                                        foreach (var subItem in item.Value)
-                                        {
-                                            if (subItem.Equals(groupJoinedReq))
-                                                groupJoined.Add(item.Key);
-                                        }
-                                    }
-
-                                    groupJoinRes.kind = "groupsJoinedRes";
-                                    groupJoinRes.content = JsonSerializer.Serialize<IEnumerable<string>>(groupJoined);
-
-                                    Utils.SendCommon(groupJoinRes, client);
 
                                     break;
                                 }
@@ -177,7 +160,7 @@ namespace Server
 
                                     loginRes.kind = "loginRes";
 
-                                    if (dsUsers.Keys.Contains(loginReq.userName as string) && dsUsers[loginReq.userName].Equals(loginReq.password))
+                                    if (await _accountSvc.IsHaveAccount(loginReq.userName, loginReq.password))
                                     {
                                         dsSocketClient.Remove(loginReq.userName);
                                         dsSocketClient.Add(loginReq.userName, client);
@@ -191,6 +174,33 @@ namespace Server
                                         loginRes.content = "loginFail";
                                         Utils.SendCommon(loginRes, client);
                                     }
+
+                                    break;
+                                }
+                            case "getAccountsOnline":
+                                {
+                                    var accountOnlineReq = JsonSerializer.Deserialize<string>(common.content); //chi co user Name
+                                    var accountOnlineRes = new Common();
+                                    var accountsOnline = dsSocketClient.Keys.Where(item => !item.Equals(accountOnlineReq));
+                                    var fullNameAccountOinline = await _accountSvc.GetUserNameAndFullNameByUserName(accountsOnline.ToArray());
+
+                                    accountOnlineRes.kind = "accountsOnlineRes";
+                                    accountOnlineRes.content = JsonSerializer.Serialize<Dictionary<string,string>>(fullNameAccountOinline);
+
+                                    Utils.SendCommon(accountOnlineRes, client);
+
+                                    break;
+                                }
+                            case "getGroupsJoined":
+                                {
+                                    var groupJoinedReq = JsonSerializer.Deserialize<string>(common.content); //chi co user Name
+                                    var groupJoinRes = new Common();
+                                    var group = _groupSvc.GetGroupByUserName(groupJoinedReq);
+
+                                    groupJoinRes.kind = "groupsJoinedRes";
+                                    groupJoinRes.content = JsonSerializer.Serialize<List<string>>(group);
+
+                                    Utils.SendCommon(groupJoinRes, client);
 
                                     break;
                                 }
@@ -215,7 +225,7 @@ namespace Server
                                 }
                             case "chatUserToUser":
                                 {
-                                    var messageReq = JsonSerializer.Deserialize<Message>(common.content);                                   
+                                    var messageReq = JsonSerializer.Deserialize<Message>(common.content);
 
                                     if (dsSocketClient.Keys.Contains(messageReq.Receiver as string))
                                     {
@@ -223,10 +233,10 @@ namespace Server
                                         //var message = new byte[1024];
 
                                         //message = Encoding.ASCII.GetBytes(String.Format("{0}: {1}", messageReq.Sender, messageReq.Content));
-                                        
-                                        socketReceiver.Send(reqClient, reqClient.Length, SocketFlags.None);                                       
+
+                                        socketReceiver.Send(reqClient, reqClient.Length, SocketFlags.None);
                                         AddMessage(String.Format("{0} gui den {1}: {2}", messageReq.Sender, messageReq.Receiver, messageReq.Content));
-                                    }                                     
+                                    }
 
                                     break;
                                 }

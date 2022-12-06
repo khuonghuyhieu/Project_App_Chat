@@ -1,4 +1,5 @@
 ﻿using ClassLibrary;
+using DTO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -52,11 +53,13 @@ namespace Project_App_Chat
                 if (bytesReceiver == 0)
                     continue;
 
-                dynamic originRes = Encoding.ASCII.GetString(byteRes, 0, bytesReceiver);
-                originRes = Utils.ClearJson(originRes);
-                originRes = Utils.SplitCommon(originRes); //truong hop server tra ve 2 goi tin cung luc
+                var originRes = Encoding.ASCII.GetString(byteRes, 0, bytesReceiver);
+                IEnumerable<string> listOriginRes;
 
-                foreach (var res in originRes)
+                originRes = Utils.ClearJson(originRes);
+                listOriginRes = Utils.SplitCommon(originRes); //truong hop server tra ve 2 goi tin cung luc
+
+                foreach (var res in listOriginRes)
                 {
                     var packetRes = JsonSerializer.Deserialize<Common>(res);
 
@@ -66,16 +69,27 @@ namespace Project_App_Chat
                         {
                             case "accountsOnlineRes":
                                 {
-                                    var accountsOnline = JsonSerializer.Deserialize<IEnumerable<string>>(packetRes.content);
+                                    var accountsOnline = JsonSerializer.Deserialize<Dictionary<string, string>>(packetRes.content);
 
-                                    listBoxOnline.DataSource = accountsOnline;
-                                    listBoxOnline.ClearSelected();
+                                    if (accountsOnline.Any())
+                                    {
+                                        var accountDto = new List<AccountDto>();
+
+                                        foreach (var item in accountsOnline)
+                                            accountDto.Add(new AccountDto { UserName = item.Key, FullName = item.Value });
+
+                                        listBoxOnline.DataSource = accountDto;
+                                        listBoxOnline.DisplayMember = "FullName";
+                                        listBoxOnline.ValueMember = "UserName";
+
+                                        listBoxOnline.ClearSelected();
+                                    }
 
                                     break;
                                 }
                             case "groupsJoinedRes":
                                 {
-                                    var groupJoined = JsonSerializer.Deserialize<IEnumerable<string>>(packetRes.content);
+                                    var groupJoined = JsonSerializer.Deserialize<List<string>>(packetRes.content);
 
                                     listBoxGroup.DataSource = groupJoined;
                                     listBoxGroup.ClearSelected();
@@ -144,7 +158,7 @@ namespace Project_App_Chat
             {
                 Sender = MainForm.userName,
                 Receiver = methodChat.Equals("chatUserToUser")
-                            ? listBoxOnline.GetItemText(listBoxOnline.SelectedItem)
+                            ? listBoxOnline.GetItemText(listBoxOnline.SelectedValue)
                             : listBoxGroup.GetItemText(listBoxGroup.SelectedItem),
                 Content = txbChat.Text
             };
@@ -227,18 +241,26 @@ namespace Project_App_Chat
                 listView1.Hide();
                 listView1.IsAccessible = false;
             }
-               
+
             else
             {
                 listView1.Show();
                 listView1.IsAccessible = true;
             }
-               
+
         }
 
         private void listView1_Click_1(object sender, EventArgs e)
         {
             txbChat.AppendText(listView1.SelectedItems[0].Text);
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            //gui goi tin lay cac user dang online
+            RequestAccountsOnline(MainForm.userName);
+            //gui goi tin lay cac group ma user dang login da join
+            RequestGroupsJoined(MainForm.userName);
         }
     }
 }

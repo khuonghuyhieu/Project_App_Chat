@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Diagnostics;
+using System.Net;
 using System.Net.Sockets;
 using System.Text.Json;
 
@@ -50,14 +51,15 @@ namespace ClassLibrary
         }
         public static IEnumerable<string> SplitCommon(string reponses)
         {
-            foreach (var item in reponses)
-            {
-                if (item == '}' && (reponses.ElementAt(reponses.IndexOf(item) + 1) == '{'))
-                    reponses = reponses.Insert(reponses.IndexOf(item) + 1, "|");
-            }
+            var input = new String(new char[] {});
+            input = reponses;
 
-            var result = reponses.Split('|').ToList();
-            result.Remove("");
+            if(input.IndexOf("}{") != -1)
+            {
+                input = input.Insert(input.IndexOf("}{") + 1, "|");
+            }    
+
+            var result = input.Split('|').ToList();
 
             return result;
         }

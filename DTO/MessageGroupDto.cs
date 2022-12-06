@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DTO
 {
-    public class MessageGroup
+    public class MessageGroupDto
     {
         public int Id { get; set; }
         public int GroupId { get; set; }

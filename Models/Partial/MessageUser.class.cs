@@ -8,9 +8,9 @@ namespace Models.Models
 {
     public partial class MessageUser
     {
-        public DTO.MessageUser GetDto()
+        public DTO.MessageUserDto GetDto()
         {
-            var messageUserDto = new DTO.MessageUser
+            var messageUserDto = new DTO.MessageUserDto
             {
                 Id = this.Id,
                 SenderId = this.SenderId,
@@ -22,7 +22,7 @@ namespace Models.Models
             return messageUserDto;
         }
 
-        public void SetDto(DTO.MessageUser messageUserDto)
+        public void SetDto(DTO.MessageUserDto messageUserDto)
         {
             this.Id = messageUserDto.Id;
             this.SenderId = messageUserDto.SenderId;

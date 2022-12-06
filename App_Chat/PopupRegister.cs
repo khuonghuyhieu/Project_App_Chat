@@ -32,10 +32,11 @@ namespace Project_App_Chat
         #region Register
         private void RequestRegister()
         {
-            var register = new Login
+            var register = new Register
             {
                 userName = txbUserName.Text,
-                password = txbPassword.Text
+                password = txbPassword.Text,
+                fullName = txbFullName.Text,
             };
 
             var common = new Common

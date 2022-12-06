@@ -32,6 +32,16 @@
         "runtime": {
           "bin/placeholder/ClassLibrary.dll": {}
         }
+      },
+      "DTO/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/DTO.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DTO.dll": {}
+        }
       }
     }
   },
@@ -100,11 +110,17 @@
       "type": "project",
       "path": "../ClassLibrary/ClassLibrary.csproj",
       "msbuildProject": "../ClassLibrary/ClassLibrary.csproj"
+    },
+    "DTO/1.0.0": {
+      "type": "project",
+      "path": "../DTO/DTO.csproj",
+      "msbuildProject": "../DTO/DTO.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0-windows7.0": [
       "ClassLibrary >= 1.0.0",
+      "DTO >= 1.0.0",
       "Newtonsoft.Json.Bson >= 1.0.2"
     ]
   },
@@ -137,6 +153,9 @@
           "projectReferences": {
             "D:\\SGU\\HK7\\LapTrinhMang\\UIHuyHieu\\Project_App_Chat\\ClassLibrary\\ClassLibrary.csproj": {
               "projectPath": "D:\\SGU\\HK7\\LapTrinhMang\\UIHuyHieu\\Project_App_Chat\\ClassLibrary\\ClassLibrary.csproj"
+            },
+            "D:\\SGU\\HK7\\LapTrinhMang\\UIHuyHieu\\Project_App_Chat\\DTO\\DTO.csproj": {
+              "projectPath": "D:\\SGU\\HK7\\LapTrinhMang\\UIHuyHieu\\Project_App_Chat\\DTO\\DTO.csproj"
             }
           }
         }

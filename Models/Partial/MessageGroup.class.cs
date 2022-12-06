@@ -8,9 +8,9 @@ namespace Models.Models
 {
     public partial class MessageGroup
     {
-        public DTO.MessageGroup GetDto()
+        public DTO.MessageGroupDto GetDto()
         {
-            var messageGroupDto = new DTO.MessageGroup
+            var messageGroupDto = new DTO.MessageGroupDto
             {
                 Id = this.Id,
                 GroupId = this.GroupId,
@@ -21,7 +21,7 @@ namespace Models.Models
             return messageGroupDto;
         }
 
-        public void SetDto(DTO.MessageGroup messageGroupDto)
+        public void SetDto(DTO.MessageGroupDto messageGroupDto)
         {
             this.Id = messageGroupDto.Id;
             this.GroupId = messageGroupDto.GroupId;

@@ -8,9 +8,9 @@ namespace Models.Models
 {
     public partial class Group
     {
-        public DTO.Group GetDto()
+        public DTO.GroupDto GetDto()
         {
-            var groupDto = new DTO.Group
+            var groupDto = new DTO.GroupDto
             {
                 Id = this.Id,
                 Name = this.Name,
@@ -20,7 +20,7 @@ namespace Models.Models
             return groupDto;
         }
 
-        public void SetDto(DTO.Group groupDto)
+        public void SetDto(DTO.GroupDto groupDto)
         {
             this.Id = groupDto.Id;
             this.Name = groupDto.Name;

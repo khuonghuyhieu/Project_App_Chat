@@ -36,6 +36,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.txbConfirmPassword = new System.Windows.Forms.TextBox();
             this.btnRegister = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txbFullName = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label2
@@ -55,7 +57,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label3.ForeColor = System.Drawing.SystemColors.Info;
-            this.label3.Location = new System.Drawing.Point(41, 147);
+            this.label3.Location = new System.Drawing.Point(41, 204);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(98, 20);
@@ -64,7 +66,7 @@
             // 
             // txbUserName
             // 
-            this.txbUserName.Location = new System.Drawing.Point(162, 135);
+            this.txbUserName.Location = new System.Drawing.Point(162, 192);
             this.txbUserName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txbUserName.Multiline = true;
             this.txbUserName.Name = "txbUserName";
@@ -76,7 +78,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label1.ForeColor = System.Drawing.SystemColors.Info;
-            this.label1.Location = new System.Drawing.Point(41, 230);
+            this.label1.Location = new System.Drawing.Point(41, 287);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(86, 20);
@@ -85,7 +87,7 @@
             // 
             // txbPassword
             // 
-            this.txbPassword.Location = new System.Drawing.Point(162, 218);
+            this.txbPassword.Location = new System.Drawing.Point(162, 275);
             this.txbPassword.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txbPassword.Multiline = true;
             this.txbPassword.Name = "txbPassword";
@@ -97,7 +99,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label4.ForeColor = System.Drawing.SystemColors.Info;
-            this.label4.Location = new System.Drawing.Point(41, 309);
+            this.label4.Location = new System.Drawing.Point(41, 366);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(71, 20);
@@ -106,7 +108,7 @@
             // 
             // txbConfirmPassword
             // 
-            this.txbConfirmPassword.Location = new System.Drawing.Point(162, 298);
+            this.txbConfirmPassword.Location = new System.Drawing.Point(162, 355);
             this.txbConfirmPassword.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txbConfirmPassword.Multiline = true;
             this.txbConfirmPassword.Name = "txbConfirmPassword";
@@ -117,7 +119,7 @@
             // 
             this.btnRegister.BackColor = System.Drawing.SystemColors.ButtonShadow;
             this.btnRegister.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnRegister.Location = new System.Drawing.Point(257, 369);
+            this.btnRegister.Location = new System.Drawing.Point(257, 426);
             this.btnRegister.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnRegister.Name = "btnRegister";
             this.btnRegister.Size = new System.Drawing.Size(115, 39);
@@ -126,12 +128,35 @@
             this.btnRegister.UseVisualStyleBackColor = false;
             this.btnRegister.Click += new System.EventHandler(this.btnRegister_Click);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label5.ForeColor = System.Drawing.SystemColors.Info;
+            this.label5.Location = new System.Drawing.Point(41, 128);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(89, 20);
+            this.label5.TabIndex = 14;
+            this.label5.Text = "Full Name";
+            // 
+            // txbFullName
+            // 
+            this.txbFullName.Location = new System.Drawing.Point(162, 116);
+            this.txbFullName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txbFullName.Multiline = true;
+            this.txbFullName.Name = "txbFullName";
+            this.txbFullName.Size = new System.Drawing.Size(209, 34);
+            this.txbFullName.TabIndex = 13;
+            // 
             // PopupRegister
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.ClientSize = new System.Drawing.Size(413, 440);
+            this.ClientSize = new System.Drawing.Size(413, 510);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.txbFullName);
             this.Controls.Add(this.btnRegister);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.txbConfirmPassword);
@@ -159,5 +184,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txbConfirmPassword;
         private System.Windows.Forms.Button btnRegister;
+        private Label label5;
+        private TextBox txbFullName;
     }
 }

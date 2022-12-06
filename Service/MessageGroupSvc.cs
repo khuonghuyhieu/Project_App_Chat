@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Service
 {
-    public class MessageUser
+    public class MessageGroupSvc
     {
         AppChatContext _context;
 
-        public MessageUser(AppChatContext context)
+        public MessageGroupSvc(AppChatContext context)
         {
             _context = context;
         }

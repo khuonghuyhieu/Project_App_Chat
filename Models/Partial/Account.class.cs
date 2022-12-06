@@ -8,9 +8,9 @@ namespace Models.Models
 {
     public partial class Account
     {
-        public DTO.Account GetDto()
+        public DTO.AccountDto GetDto()
         {
-            var accountDto = new DTO.Account
+            var accountDto = new DTO.AccountDto
             {
                 Id = this.Id,
                 UserName = this.UserName,
@@ -21,7 +21,7 @@ namespace Models.Models
             return accountDto;
         }
 
-        public void SetDto(DTO.Account accountDto)
+        public void SetDto(DTO.AccountDto accountDto)
         {
             this.Id = accountDto.Id;
             this.UserName = accountDto.UserName;
