@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.label1 = new System.Windows.Forms.Label();
             this.btnLogin = new System.Windows.Forms.Button();
             this.btnRegister = new System.Windows.Forms.Button();
@@ -35,6 +36,7 @@
             this.txbIp = new System.Windows.Forms.TextBox();
             this.txbPort = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.btnConnect = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -43,19 +45,19 @@
             this.label1.BackColor = System.Drawing.Color.Black;
             this.label1.Font = new System.Drawing.Font("MV Boli", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(326, 77);
+            this.label1.Location = new System.Drawing.Point(321, 106);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(257, 63);
+            this.label1.Size = new System.Drawing.Size(339, 63);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Chat SGU";
+            this.label1.Text = "Chat Circle K";
             // 
             // btnLogin
             // 
             this.btnLogin.BackColor = System.Drawing.SystemColors.ControlDark;
             this.btnLogin.FlatAppearance.BorderSize = 0;
             this.btnLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
-            this.btnLogin.Location = new System.Drawing.Point(314, 260);
+            this.btnLogin.Location = new System.Drawing.Point(333, 260);
             this.btnLogin.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(287, 43);
@@ -69,7 +71,7 @@
             this.btnRegister.BackColor = System.Drawing.SystemColors.ControlDark;
             this.btnRegister.FlatAppearance.BorderSize = 0;
             this.btnRegister.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
-            this.btnRegister.Location = new System.Drawing.Point(314, 331);
+            this.btnRegister.Location = new System.Drawing.Point(333, 331);
             this.btnRegister.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnRegister.Name = "btnRegister";
             this.btnRegister.Size = new System.Drawing.Size(287, 43);
@@ -93,6 +95,7 @@
             this.txbIp.Name = "txbIp";
             this.txbIp.Size = new System.Drawing.Size(145, 23);
             this.txbIp.TabIndex = 6;
+            this.txbIp.Text = "192.168.1.4";
             // 
             // txbPort
             // 
@@ -100,6 +103,7 @@
             this.txbPort.Name = "txbPort";
             this.txbPort.Size = new System.Drawing.Size(145, 23);
             this.txbPort.TabIndex = 8;
+            this.txbPort.Text = "2008";
             // 
             // label3
             // 
@@ -110,12 +114,24 @@
             this.label3.TabIndex = 7;
             this.label3.Text = "Port";
             // 
+            // btnConnect
+            // 
+            this.btnConnect.Location = new System.Drawing.Point(423, 519);
+            this.btnConnect.Name = "btnConnect";
+            this.btnConnect.Size = new System.Drawing.Size(115, 32);
+            this.btnConnect.TabIndex = 9;
+            this.btnConnect.Text = "Connect To Server";
+            this.btnConnect.UseVisualStyleBackColor = true;
+            this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::App_Chat.Properties.Resources.WPFNloO;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(934, 595);
+            this.Controls.Add(this.btnConnect);
             this.Controls.Add(this.txbPort);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txbIp);
@@ -139,6 +155,7 @@
         private TextBox txbIp;
         private TextBox txbPort;
         private Label label3;
+        private Button btnConnect;
     }
 }
 

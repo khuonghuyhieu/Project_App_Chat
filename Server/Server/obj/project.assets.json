@@ -865,6 +865,9 @@
       "ClassLibrary/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Models": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/ClassLibrary.dll": {}
         },
@@ -900,6 +903,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
+          "ClassLibrary": "1.0.0",
           "Models": "1.0.0"
         },
         "compile": {

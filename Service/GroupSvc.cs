@@ -18,15 +18,15 @@ namespace Service
             _context = context;
         }
 
-        public List<string> GetGroupByUserName(string userName)
+        public async Task<List<GroupDto>> GetGroupNameByAccountId(int accountId)
         {
-            var result = new List<string>();
-            var groups = _context.Group.Include(item => item.Account).Where(group => group.Account.Any(account => account.UserName.Equals(userName)));
-            //var a = _context.Account.Include(account => account.Group).ToList();
+            var result = new List<GroupDto>();
+            var groups = _context.Group.Include(item => item.Account)
+                                        .Where(group => group.Account.Any(account => account.Id == accountId));
 
             foreach (var item in groups)
             {
-                result.Add(item.GetDto().Name);
+                result.Add(item.GetDto());
             }
 
             return result;

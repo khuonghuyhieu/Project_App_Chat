@@ -58,3 +58,8 @@ D:\SGU\HK7\LapTrinhMang\UIHuyHieu\Project_App_Chat\ClassLibrary\obj\Debug\net6.0
 D:\SGU\HK7\LapTrinhMang\UIHuyHieu\Project_App_Chat\ClassLibrary\obj\Debug\net6.0\refint\ClassLibrary.dll
 D:\SGU\HK7\LapTrinhMang\UIHuyHieu\Project_App_Chat\ClassLibrary\obj\Debug\net6.0\ClassLibrary.pdb
 D:\SGU\HK7\LapTrinhMang\UIHuyHieu\Project_App_Chat\ClassLibrary\obj\Debug\net6.0\ref\ClassLibrary.dll
+D:\SGU\HK7\LapTrinhMang\UIHuyHieu\Project_App_Chat\ClassLibrary\bin\Debug\net6.0\DTO.dll
+D:\SGU\HK7\LapTrinhMang\UIHuyHieu\Project_App_Chat\ClassLibrary\bin\Debug\net6.0\Models.dll
+D:\SGU\HK7\LapTrinhMang\UIHuyHieu\Project_App_Chat\ClassLibrary\bin\Debug\net6.0\Models.pdb
+D:\SGU\HK7\LapTrinhMang\UIHuyHieu\Project_App_Chat\ClassLibrary\bin\Debug\net6.0\DTO.pdb
+D:\SGU\HK7\LapTrinhMang\UIHuyHieu\Project_App_Chat\ClassLibrary\obj\Debug\net6.0\ClassLibrary.csproj.CopyComplete

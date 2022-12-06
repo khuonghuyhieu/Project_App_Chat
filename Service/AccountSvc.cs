@@ -1,4 +1,5 @@
 ﻿using DTO;
+using Microsoft.EntityFrameworkCore;
 using Models.Data;
 using Models.Models;
 using System;
@@ -20,7 +21,7 @@ namespace Service
 
         public async Task<bool> IsAccountExits(string userName)
         {
-            if (_context.Account.FirstOrDefault(account => account.UserName.Equals(userName)) == null)
+            if (await _context.Account.FirstOrDefaultAsync(account => account.UserName.Equals(userName)) == null)
                 return false;
 
             return true;
@@ -32,30 +33,47 @@ namespace Service
 
             if (!await IsAccountExits(accountDto.UserName))
             {
-                _context.Account.Add(account);
-                _context.SaveChanges();
+                await _context.Account.AddAsync(account);
+                await _context.SaveChangesAsync();
             }
         }
         public async Task<bool> IsHaveAccount(string userName, string password)
         {
-            if (_context.Account.FirstOrDefault(account => account.UserName.Equals(userName) && account.Password.Equals(password)) == null)
+            if (await _context.Account.FirstOrDefaultAsync(account => account.UserName.Equals(userName) && account.Password.Equals(password)) == null)
                 return false;
 
             return true;
         }
-        public async Task<Dictionary<string,string>> GetUserNameAndFullNameByUserName(params string[] usersName)
+        public async Task<Dictionary<int,string>> GetIdAndFullNameByAccountId(params int[] idAccount)
         {
-            var accounts = _context.Account.Where(account => usersName.Contains(account.UserName)).ToList();
-            var result = new Dictionary<string, string>();
+            var accounts = _context.Account.Where(account => idAccount.Contains(account.Id)).ToList();
+            var result = new Dictionary<int, string>(); //id(account): fullName
 
             foreach (var item in accounts)
             {
-                result.Add(item.GetDto().UserName,item.GetDto().FullName);
+                result.Add(item.GetDto().Id,item.GetDto().FullName);
             }
 
             return result ;
         }
-        
-       
+        public async Task<AccountDto> GetAccountByUserName(string userName)
+        {
+            var account = await _context.Account.FirstOrDefaultAsync(account => account.UserName.Equals(userName));
+
+            if (account == null)
+                return null;
+            
+            return account.GetDto();
+        }
+        public async Task<AccountDto> GetAccountById(int id)
+        {
+            var account = await _context.Account.FirstOrDefaultAsync(account => account.Id == id);
+
+            if (account == null)
+                return null;
+
+            return account.GetDto();
+        }
+
     }
 }

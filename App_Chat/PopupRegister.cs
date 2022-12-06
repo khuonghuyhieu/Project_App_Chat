@@ -41,11 +41,11 @@ namespace Project_App_Chat
 
             var common = new Common
             {
-                kind = "register",
-                content = JsonSerializer.Serialize(register),
+                Kind = "register",
+                Content = JsonSerializer.Serialize(register),
             };
 
-            var packetRegister = new byte[1024];
+            var packetRegister = new byte[Utils.SIZE_BYTE];
             packetRegister = Encoding.ASCII.GetBytes(JsonSerializer.Serialize(common));
 
             MainForm.client.Send(packetRegister, packetRegister.Length, SocketFlags.None);       
@@ -64,20 +64,20 @@ namespace Project_App_Chat
         {
             while (true)
             {
-                var receiverMessage = new byte[1024];
+                var receiverMessage = new byte[Utils.SIZE_BYTE];
                 var bytesReceiver = MainForm.client.Receive(receiverMessage);
 
                 var originalMessage = Encoding.ASCII.GetString(receiverMessage, 0, bytesReceiver);
                 originalMessage = originalMessage.Replace("\0", "");
                 var packetRes = JsonSerializer.Deserialize<Common>(originalMessage);
 
-                if (packetRes != null && packetRes.content != null)
+                if (packetRes != null && packetRes.Content != null)
                 {
-                    switch (packetRes.kind)
+                    switch (packetRes.Kind)
                     {
                         case "registerRes":
                             {
-                                if (packetRes.content.Equals("registerSuccessful"))
+                                if (packetRes.Content.Equals("registerSuccessful"))
                                 {
                                     MessageBox.Show("Register Successful");
                                    

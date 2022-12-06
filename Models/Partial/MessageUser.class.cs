@@ -14,7 +14,7 @@ namespace Models.Models
             {
                 Id = this.Id,
                 SenderId = this.SenderId,
-                ReceiveId = this.ReceiveId,
+                ReceiveId = this.ReceiveId,              
                 Message = this.Message,
                 TimeSend = this.TimeSend,
             };

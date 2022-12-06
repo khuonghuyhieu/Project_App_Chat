@@ -1,5 +1,6 @@
 ﻿using App_Chat;
 using ClassLibrary;
+using DTO;
 using System;
 using System.Net;
 using System.Net.Sockets;
@@ -41,8 +42,8 @@ namespace Project_App_Chat
             };
             var common = new Common
             {
-                kind = "login",
-                content = JsonSerializer.Serialize(login)
+                Kind = "login",
+                Content = JsonSerializer.Serialize(login)
             };
 
             Utils.SendCommon(common, MainForm.client);         
@@ -58,22 +59,30 @@ namespace Project_App_Chat
         {
             while (true)
             {
-                var receiverMessage = new byte[1024];
+                var receiverMessage = new byte[Utils.SIZE_BYTE];
                 var bytesReceiver = MainForm.client.Receive(receiverMessage);
 
                 var originalMessage = Encoding.ASCII.GetString(receiverMessage, 0, bytesReceiver);
                 originalMessage = originalMessage.Replace("\0", "");
                 var packetRes = JsonSerializer.Deserialize<Common>(originalMessage);
 
-                if (packetRes != null && packetRes.content != null)
+                if (packetRes != null && packetRes.Content != null)
                 {
-                    switch (packetRes.kind)
+                    switch (packetRes.Kind)
                     {
                         case "loginRes":
                             {
-                                if (packetRes.content.Equals("loginSuccessful"))
+                                if (!packetRes.Content.Equals("loginFail"))
                                 {
-                                    MainForm.userName = txbUserName.Text;
+                                    var accountLogin = JsonSerializer.Deserialize<AccountDto>(packetRes.Content);
+
+                                    MainForm.accountLogin = new AccountDto
+                                    {
+                                        Id = accountLogin.Id,
+                                        UserName = accountLogin.UserName,
+                                        Password = accountLogin.Password,
+                                        FullName = accountLogin.FullName,
+                                    };
                                     Program.mainForm.Hide();
 
                                     this.Close();
@@ -84,7 +93,7 @@ namespace Project_App_Chat
                                     //return;
                                 }                                    
                                 else
-                                    MessageBox.Show("Login Fails");
+                                    MessageBox.Show("User Name or Password is wrong !");
 
                                 break;
                             }                     

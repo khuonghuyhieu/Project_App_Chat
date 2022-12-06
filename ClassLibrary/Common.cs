@@ -8,8 +8,8 @@ namespace ClassLibrary
 {
     public class Common
     {
-        public string kind { get; set; }
-        public string content { get; set; }
+        public string Kind { get; set; }
+        public string Content { get; set; }
 
         public Common()
         {

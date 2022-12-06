@@ -7,6 +7,8 @@ namespace ClassLibrary
 {
     public class Utils
     {
+        public static int SIZE_BYTE = 2048;
+
         public static string GetLocalIPAddress()
         {
             var host = Dns.GetHostEntry(Dns.GetHostName());
@@ -51,13 +53,13 @@ namespace ClassLibrary
         }
         public static IEnumerable<string> SplitCommon(string reponses)
         {
-            var input = new String(new char[] {});
+            var input = new String(new char[] { });
             input = reponses;
 
-            if(input.IndexOf("}{") != -1)
+            if (input.IndexOf("}{") != -1)
             {
                 input = input.Insert(input.IndexOf("}{") + 1, "|");
-            }    
+            }
 
             var result = input.Split('|').ToList();
 
