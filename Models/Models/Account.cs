@@ -9,6 +9,7 @@ namespace Models.Models
     {
         public Account()
         {
+            MessageGroup = new HashSet<MessageGroup>();
             MessageUserReceive = new HashSet<MessageUser>();
             MessageUserSender = new HashSet<MessageUser>();
             Group = new HashSet<Group>();
@@ -19,6 +20,7 @@ namespace Models.Models
         public string Password { get; set; }
         public string FullName { get; set; }
 
+        public virtual ICollection<MessageGroup> MessageGroup { get; set; }
         public virtual ICollection<MessageUser> MessageUserReceive { get; set; }
         public virtual ICollection<MessageUser> MessageUserSender { get; set; }
 

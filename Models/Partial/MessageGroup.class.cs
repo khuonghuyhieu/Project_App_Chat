@@ -13,6 +13,7 @@ namespace Models.Models
             var messageGroupDto = new DTO.MessageGroupDto
             {
                 Id = this.Id,
+                SenderId = this.SenderId,
                 GroupId = this.GroupId,
                 Message = this.Message,
                 TimeSend = this.TimeSend,
@@ -24,6 +25,7 @@ namespace Models.Models
         public void SetDto(DTO.MessageGroupDto messageGroupDto)
         {
             this.Id = messageGroupDto.Id;
+            this.SenderId = messageGroupDto.SenderId;
             this.GroupId = messageGroupDto.GroupId;
             this.Message = messageGroupDto.Message;
             this.TimeSend = messageGroupDto.TimeSend;

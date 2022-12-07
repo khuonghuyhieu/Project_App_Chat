@@ -7,7 +7,7 @@ namespace ClassLibrary
 {
     public class Utils
     {
-        public static int SIZE_BYTE = 2048;
+        public static int SIZE_BYTE = 3072;
 
         public static string GetLocalIPAddress()
         {
@@ -64,6 +64,6 @@ namespace ClassLibrary
             var result = input.Split('|').ToList();
 
             return result;
-        }
+        }     
     }
 }

@@ -48,12 +48,14 @@ namespace Project_App_Chat
             var packetRegister = new byte[Utils.SIZE_BYTE];
             packetRegister = Encoding.ASCII.GetBytes(JsonSerializer.Serialize(common));
 
-            MainForm.client.Send(packetRegister, packetRegister.Length, SocketFlags.None);       
+            MainForm.client.Send(packetRegister, packetRegister.Length, SocketFlags.None);
         }
         private void btnRegister_Click(object sender, EventArgs e)
         {
             if (Utils.ConfirmPassword(txbPassword.Text, txbConfirmPassword.Text))
+            {
                 RequestRegister();
+            }
             else
                 MessageBox.Show("Password not same confirm password");
         }
@@ -80,11 +82,11 @@ namespace Project_App_Chat
                                 if (packetRes.Content.Equals("registerSuccessful"))
                                 {
                                     MessageBox.Show("Register Successful");
-                                   
+
                                     this.Close();
 
                                     return;
-                                }                                    
+                                }
                                 else
                                     MessageBox.Show("User Name Is Exits");
 

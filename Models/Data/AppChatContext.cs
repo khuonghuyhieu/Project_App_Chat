@@ -77,6 +77,12 @@ namespace Models.Data
                     .HasForeignKey(d => d.GroupId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_MessageGroup_Group");
+
+                entity.HasOne(d => d.Sender)
+                    .WithMany(p => p.MessageGroup)
+                    .HasForeignKey(d => d.SenderId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_MessageGroup_Account");
             });
 
             modelBuilder.Entity<MessageUser>(entity =>

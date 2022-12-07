@@ -12,7 +12,7 @@ using System.Windows.Forms;
 namespace Project_App_Chat
 {
     public partial class PopupLogin : Form
-    {      
+    {
         private Thread threadReceive;
 
         public PopupLogin()
@@ -25,10 +25,10 @@ namespace Project_App_Chat
             threadReceive = new Thread(new ThreadStart(ResponeFromServer));
             threadReceive.IsBackground = true;
             threadReceive.Start();
-        
+
             //set cung test cho nhanh
             txbUserName.Text = "vytruong";
-            txbPassword.Text = "123";            
+            txbPassword.Text = "123";
         }
 
         #region Login
@@ -46,7 +46,7 @@ namespace Project_App_Chat
                 Content = JsonSerializer.Serialize(login)
             };
 
-            Utils.SendCommon(common, MainForm.client);         
+            Utils.SendCommon(common, MainForm.client);
         }
         private void btnLogin_Click(object sender, EventArgs e)
         {
@@ -90,13 +90,13 @@ namespace Project_App_Chat
                                     var mainChat = new MainChat();
                                     mainChat.ShowDialog();
 
-                                    //return;
-                                }                                    
+                                    return;
+                                }
                                 else
                                     MessageBox.Show("User Name or Password is wrong !");
 
                                 break;
-                            }                     
+                            }
                         default:
                             break;
                     }
@@ -104,12 +104,11 @@ namespace Project_App_Chat
             }
             MainForm.client.Disconnect(true);
             MainForm.client.Close();
-        }    
+        }
         #endregion
-
         private void PopupLogin_FormClosing(object sender, FormClosingEventArgs e)
         {
-           Utils.KillThread(threadReceive);
+            Utils.KillThread(threadReceive);
         }
     }
 }

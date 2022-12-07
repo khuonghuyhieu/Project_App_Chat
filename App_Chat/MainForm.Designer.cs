@@ -95,7 +95,6 @@
             this.txbIp.Name = "txbIp";
             this.txbIp.Size = new System.Drawing.Size(145, 23);
             this.txbIp.TabIndex = 6;
-            this.txbIp.Text = "192.168.1.4";
             // 
             // txbPort
             // 
@@ -103,7 +102,6 @@
             this.txbPort.Name = "txbPort";
             this.txbPort.Size = new System.Drawing.Size(145, 23);
             this.txbPort.TabIndex = 8;
-            this.txbPort.Text = "2008";
             // 
             // label3
             // 

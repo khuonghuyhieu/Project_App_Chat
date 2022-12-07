@@ -21,15 +21,15 @@ namespace Service
             _context = context;
             _accountSvc = new AccountSvc(context);
         }
-        public async Task AddMessageUserToUser(Message message)
+        public async Task AddMessageUser(MessageReq messageReq)
         {
             //convert Message to MessageUserDto
             var messageUserDto = new MessageUserDto
             {
-                SenderId = _accountSvc.GetAccountById(message.SenderId).Result.Id,
-                ReceiveId = _accountSvc.GetAccountById(message.ReceiverId).Result.Id,
-                Message = message.Content,
-                TimeSend = message.TimeSend,
+                SenderId = _accountSvc.GetAccountById(messageReq.SenderId).Result.Id,
+                ReceiveId = _accountSvc.GetAccountById(messageReq.ReceiverId).Result.Id,
+                Message = messageReq.Content,
+                TimeSend = messageReq.TimeSend,
             };
 
             var messageUser = new MessageUser();
@@ -38,9 +38,9 @@ namespace Service
             await _context.MessageUser.AddAsync(messageUser);
             await _context.SaveChangesAsync();
         }
-        public async Task<Dictionary<string,string>> GetOldMessageUser(MessageOld messageOld)
+        public async Task<List<MessageOldRes>> GetOldMessageUser(MessageOldReq messageOld)
         {
-            var messageUsersDto = new Dictionary<string, string>(); //fullName: message
+            var messageOldRes = new List<MessageOldRes>();
             var messageUser = _context.MessageUser.Where(message =>
                                                         (message.SenderId == messageOld.SenderId && message.ReceiveId == messageOld.ReceiverId)
                                                      || (message.SenderId == messageOld.ReceiverId && message.ReceiveId == messageOld.SenderId))
@@ -48,10 +48,14 @@ namespace Service
 
             foreach (var item in messageUser)
             {
-                messageUsersDto.Add(item.Sender.FullName,item.Message);
+                messageOldRes.Add(new MessageOldRes
+                {
+                    FullName = item.Sender.FullName,
+                    Message = item.Message,
+                });
             }
 
-            return messageUsersDto;
+            return messageOldRes;
         }
     }
 }

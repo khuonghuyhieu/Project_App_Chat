@@ -6,6 +6,8 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -30,10 +32,9 @@ namespace Project_App_Chat
             threadReceive.IsBackground = true;
             threadReceive.Start();
 
-            //gui goi tin lay cac user dang online
             RequestAccountsOnline(MainForm.accountLogin.Id);
-            //gui goi tin lay cac group ma user dang login da join
             RequestGroupsJoined(MainForm.accountLogin.Id);
+            //RequestAllAccount(MainForm.accountLogin.Id);
 
             labelUserLogin.Text = MainForm.accountLogin.FullName;
 
@@ -69,19 +70,16 @@ namespace Project_App_Chat
                                 {
                                     var accountsOnline = JsonSerializer.Deserialize<Dictionary<int, string>>(packetRes.Content);
 
-                                    if (accountsOnline.Any())
-                                    {
-                                        var accountDto = new List<AccountDto>();
+                                    var accountDto = new List<AccountDto>();
 
-                                        foreach (var item in accountsOnline)
-                                            accountDto.Add(new AccountDto { Id = item.Key, FullName = item.Value });
+                                    foreach (var item in accountsOnline)
+                                        accountDto.Add(new AccountDto { Id = item.Key, FullName = item.Value });
 
-                                        listBoxOnline.DataSource = accountDto;
-                                        listBoxOnline.DisplayMember = "FullName";
-                                        listBoxOnline.ValueMember = "Id";
+                                    listBoxOnline.DataSource = accountDto;
+                                    listBoxOnline.DisplayMember = "FullName";
+                                    listBoxOnline.ValueMember = "Id";
 
-                                        listBoxOnline.ClearSelected();
-                                    }
+                                    listBoxOnline.ClearSelected();
 
                                     break;
                                 }
@@ -89,41 +87,70 @@ namespace Project_App_Chat
                                 {
                                     var groupJoined = JsonSerializer.Deserialize<List<GroupDto>>(packetRes.Content);
 
-                                    if(groupJoined.Any())
-                                    {
-                                        listBoxGroup.DataSource = groupJoined;
-                                        listBoxGroup.DisplayMember = "Name";
-                                        listBoxGroup.ValueMember = "Id";
+                                    listBoxGroup.DataSource = groupJoined;
+                                    listBoxGroup.DisplayMember = "Name";
+                                    listBoxGroup.ValueMember = "Id";
 
-                                        listBoxGroup.ClearSelected();
-                                    }    
+                                    listBoxGroup.ClearSelected();
+
+                                    break;
+                                }
+                            case "allAccountRes":
+                                {
+                                    var allAccounts = JsonSerializer.Deserialize<Dictionary<int, string>>(packetRes.Content);
+                                    var accountDto = new List<AccountDto>();
+
+                                    checkAddToGroup.Items.Clear();
+
+                                    foreach (var item in allAccounts)
+                                    {
+                                        //accountDto.Add(new AccountDto { Id = item.Key, FullName = item.Value });
+                                        checkAddToGroup.Items.Add(new AccountDto { Id = item.Key, FullName = item.Value });                                          
+                                    }
+                                    
+                                    //checkAddToGroup.DataSource = accountDto; //null ??
+                                    checkAddToGroup.DisplayMember = "FullName";
+                                    checkAddToGroup.ValueMember = "Id";
 
                                     break;
                                 }
                             case "OldMessageUserRes":
                                 {
-                                    var messageOldUser = JsonSerializer.Deserialize<Dictionary<string,string>>(packetRes.Content);
+                                    var messageOldUser = JsonSerializer.Deserialize<List<MessageOldRes>>(packetRes.Content);
 
                                     txbKhungChat.Clear();
 
                                     foreach (var item in messageOldUser)
                                     {
-                                        AddMessage(item.Key + ": " + item.Value);
+                                        AddMessage(item.FullName + ": " + item.Message);
                                     }
 
                                     break;
                                 }
-                            default: //nhan tin nhan giua cac client + group voi nhau
+                            case "OldMessageGroupRes":
                                 {
-                                    var message = JsonSerializer.Deserialize<ClassLibrary.Message>(packetRes.Content);
-                                    //var fullName = listBoxOnline.GetItemText(listBoxOnline.SelectedItem).Equals()
+                                    var messageOldUser = JsonSerializer.Deserialize<List<MessageOldRes>>(packetRes.Content);
 
-                                    if (message != null)
-                                        AddMessage(message.SenderId + ": " + message.Content);
+                                    txbKhungChat.Clear();
+
+                                    foreach (var item in messageOldUser)
+                                    {
+                                        AddMessage(item.FullName + ": " + item.Message);
+                                    }
 
                                     break;
                                 }
+                            case "MessageRes": //nhan tin nhan giua cac client + group voi nhau
+                                {
+                                    var message = JsonSerializer.Deserialize<MessageRes>(packetRes.Content);
 
+                                    if (message != null)
+                                        AddMessage(message.FullName + ": " + message.Content);
+
+                                    break;
+                                }
+                            default:
+                                break;
                         }
                     }
                 }
@@ -135,7 +162,7 @@ namespace Project_App_Chat
         }
         #endregion
 
-        #region Send Message
+        #region Send Message User + Group
         private void Chat(string methodChat)
         {
             if (methodChat.Equals(string.Empty))
@@ -145,7 +172,7 @@ namespace Project_App_Chat
                 return;
             }
 
-            var message = new ClassLibrary.Message
+            var message = new MessageReq
             {
                 SenderId = MainForm.accountLogin.Id,
                 ReceiverId = methodChat.Equals("chatUserToUser")
@@ -164,7 +191,7 @@ namespace Project_App_Chat
             Utils.SendCommon(common, MainForm.client);
 
             if (listBoxOnline.SelectedItem != null)
-                AddMessage(message.SenderId + ": " + message.Content);
+                AddMessage(MainForm.accountLogin.FullName + ": " + message.Content);
         }
         private void btnSend_Click(object sender, EventArgs e)
         {
@@ -177,10 +204,10 @@ namespace Project_App_Chat
         #endregion
 
         #region Get Old Message User
-        private void listBoxOnline_Click(object sender, EventArgs e)
+        private void OldMessageUser()
         {
             //gui goi tin lay tin nhan cu
-            var messagOld = new MessageOld
+            var messagOld = new MessageOldReq
             {
                 SenderId = MainForm.accountLogin.Id,
                 ReceiverId = int.Parse(listBoxOnline.GetItemText(listBoxOnline.SelectedValue)),
@@ -194,34 +221,38 @@ namespace Project_App_Chat
 
             Utils.SendCommon(common, MainForm.client);
         }
+        private void listBoxOnline_Click(object sender, EventArgs e)
+        {
+            UnSelectedListBoxOnline();
+
+            if (listBoxOnline.SelectedValue != null)
+                OldMessageUser();
+        }
         #endregion
 
-        #region Unselected ListBox
-        private void listBoxOnline_SelectedIndexChanged_1(object sender, EventArgs e)
+        #region Get Old Message Group
+        private void OldMessageGroup()
         {
-            //selected and unselected
-            if (oldSelectedIndexOnline == listBoxOnline.SelectedIndex)
-                listBoxOnline.ClearSelected();
-            else
+            //gui goi tin lay tin nhan cu
+            var messagOld = new MessageOldReq
             {
-                oldSelectedIndexOnline = listBoxOnline.SelectedIndex;
-            }
+                GroupId = int.Parse(listBoxGroup.GetItemText(listBoxGroup.SelectedValue)),
+            };
 
-            listBoxGroup.ClearSelected();
+            var common = new Common
+            {
+                Kind = "OldMessageGroup",
+                Content = JsonSerializer.Serialize(messagOld)
+            };
+
+            Utils.SendCommon(common, MainForm.client);
         }
-        private void listBoxGroup_SelectedIndexChanged_1(object sender, EventArgs e)
+        private void listBoxGroup_Click(object sender, EventArgs e)
         {
-            if (oldSelectedIndexGroup == listBoxGroup.SelectedIndex)
-            {
-                listBoxGroup.ClearSelected();
-            }
-            else
-            {
-                oldSelectedIndexGroup = listBoxGroup.SelectedIndex;
+            UnSelectedListBoxGroup();
 
-            }
-
-            listBoxOnline.ClearSelected();
+            if (listBoxGroup.SelectedValue != null)
+                OldMessageGroup();
         }
         #endregion
 
@@ -247,7 +278,7 @@ namespace Project_App_Chat
         }
         #endregion
 
-        #region Send packet AccountOnline + GroupJoined
+        #region Send packet AccountOnline + GroupJoined + AllAccount
         private void RequestAccountsOnline(int idAccountLogin)
         {
             var common = new Common
@@ -268,10 +299,44 @@ namespace Project_App_Chat
 
             Utils.SendCommon(common, MainForm.client);
         }
+        private void RequestAllAccount(int idAccountLogin)
+        {
+            var common = new Common
+            {
+                Kind = "getAllAccounts",
+                Content = JsonSerializer.Serialize(idAccountLogin),
+            };
+
+            Utils.SendCommon(common, MainForm.client);
+        }
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             RequestAccountsOnline(MainForm.accountLogin.Id);
             RequestGroupsJoined(MainForm.accountLogin.Id);
+            //RequestAllAccount(MainForm.accountLogin.Id);
+        }
+        #endregion
+
+        #region Logout
+        private void Logout()
+        {
+            var common = new Common
+            {
+                Kind = "Logout",
+                Content = JsonSerializer.Serialize(MainForm.accountLogin.Id),
+            };
+
+            Utils.SendCommon(common, MainForm.client);
+        }
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            Logout();
+            //RequestAccountsOnline(MainForm.accountLogin.Id);
+
+            this.Close();
+
+            ReConnectToServer(); //fix loi khong hien thi lai listBoxOnline = cach nay
+            Program.mainForm.Show();
         }
         #endregion
 
@@ -299,6 +364,50 @@ namespace Project_App_Chat
         private void MainChat_FormClosing(object sender, FormClosingEventArgs e)
         {
             Utils.KillThread(threadReceive);
+        }
+        private void UnSelectedListBoxOnline()
+        {
+            if (oldSelectedIndexOnline == listBoxOnline.SelectedIndex)
+            {
+                listBoxOnline.ClearSelected();
+                oldSelectedIndexOnline = -1;
+            }
+            else
+            {
+                oldSelectedIndexOnline = listBoxOnline.SelectedIndex;
+            }
+
+            listBoxGroup.ClearSelected();
+            oldSelectedIndexGroup = -1;
+        }
+        private void UnSelectedListBoxGroup()
+        {
+            if (oldSelectedIndexGroup == listBoxGroup.SelectedIndex)
+            {
+                listBoxGroup.ClearSelected();
+                oldSelectedIndexGroup = -1;
+            }
+            else
+            {
+                oldSelectedIndexGroup = listBoxGroup.SelectedIndex;
+            }
+
+            listBoxOnline.ClearSelected();
+            oldSelectedIndexOnline = -1;
+        }
+        private void ReConnectToServer()
+        {
+            try
+            {
+                //tao connect voi server
+                MainForm.ipServer = new IPEndPoint(IPAddress.Parse(MainForm.ip), int.Parse(MainForm.port));
+                MainForm.client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                MainForm.client.Connect(MainForm.ipServer);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

@@ -71,7 +71,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnLogout = new System.Windows.Forms.Button();
             this.labelUserLogin = new System.Windows.Forms.Label();
             this.txbKhungChat = new System.Windows.Forms.TextBox();
             this.txbChat = new System.Windows.Forms.TextBox();
@@ -116,7 +116,6 @@
             this.pictureBox2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(1136, 763);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 1;
             this.pictureBox2.TabStop = false;
             // 
@@ -182,7 +181,6 @@
             this.listBoxOnline.Size = new System.Drawing.Size(308, 289);
             this.listBoxOnline.TabIndex = 0;
             this.listBoxOnline.Click += new System.EventHandler(this.listBoxOnline_Click);
-            this.listBoxOnline.SelectedIndexChanged += new System.EventHandler(this.listBoxOnline_SelectedIndexChanged_1);
             // 
             // tabPage2
             // 
@@ -200,11 +198,6 @@
             // checkAddToGroup
             // 
             this.checkAddToGroup.FormattingEnabled = true;
-            this.checkAddToGroup.Items.AddRange(new object[] {
-            "Khuong Huy Hieu",
-            "Truong Nhat Vy",
-            "Thai Kim Luong",
-            "Hoang Tan"});
             this.checkAddToGroup.Location = new System.Drawing.Point(7, 7);
             this.checkAddToGroup.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.checkAddToGroup.Name = "checkAddToGroup";
@@ -241,7 +234,7 @@
             this.listBoxGroup.Name = "listBoxGroup";
             this.listBoxGroup.Size = new System.Drawing.Size(308, 154);
             this.listBoxGroup.TabIndex = 1;
-            this.listBoxGroup.SelectedIndexChanged += new System.EventHandler(this.listBoxGroup_SelectedIndexChanged_1);
+            this.listBoxGroup.Click += new System.EventHandler(this.listBoxGroup_Click);
             // 
             // label4
             // 
@@ -306,7 +299,7 @@
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.Color.LightGray;
-            this.panel4.Controls.Add(this.button1);
+            this.panel4.Controls.Add(this.btnLogout);
             this.panel4.Controls.Add(this.labelUserLogin);
             this.panel4.Location = new System.Drawing.Point(7, 7);
             this.panel4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -314,17 +307,18 @@
             this.panel4.Size = new System.Drawing.Size(707, 44);
             this.panel4.TabIndex = 10;
             // 
-            // button1
+            // btnLogout
             // 
-            this.button1.BackColor = System.Drawing.Color.Red;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button1.Location = new System.Drawing.Point(584, 5);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(111, 31);
-            this.button1.TabIndex = 11;
-            this.button1.Text = "Logout";
-            this.button1.UseVisualStyleBackColor = false;
+            this.btnLogout.BackColor = System.Drawing.Color.Red;
+            this.btnLogout.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnLogout.Location = new System.Drawing.Point(584, 5);
+            this.btnLogout.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btnLogout.Name = "btnLogout";
+            this.btnLogout.Size = new System.Drawing.Size(111, 31);
+            this.btnLogout.TabIndex = 11;
+            this.btnLogout.Text = "Logout";
+            this.btnLogout.UseVisualStyleBackColor = false;
+            this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
             // 
             // labelUserLogin
             // 
@@ -536,7 +530,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnLogout;
         private System.Windows.Forms.Label labelUserLogin;
         private System.Windows.Forms.TextBox txbKhungChat;
         private System.Windows.Forms.TextBox txbChat;

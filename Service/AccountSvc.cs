@@ -65,15 +65,39 @@ namespace Service
             
             return account.GetDto();
         }
-        public async Task<AccountDto> GetAccountById(int id)
+        public async Task<AccountDto> GetAccountById(int accountId)
         {
-            var account = await _context.Account.FirstOrDefaultAsync(account => account.Id == id);
+            var account = await _context.Account.FirstOrDefaultAsync(account => account.Id == accountId);
 
             if (account == null)
                 return null;
 
             return account.GetDto();
         }
+        public async Task<List<int>> GetAccountsIdInGroupByGroupId(int groupId)
+        {
+            var accountsId = new List<int>();
+            var accounts = _context.Account.Include(item => item.Group)
+                                               .Where(account => account.Group.Any(group => group.Id == groupId));
 
+            foreach (var item in accounts)
+            {
+                accountsId.Add(item.Id);
+            }
+
+            return accountsId;
+        }
+        public async Task<Dictionary<int, string>> GetAllAccountExceptId(int accountId)
+        {
+            var result = new Dictionary<int, string>(); //id(account): fullName
+            var allAccounts = _context.Account.Where(account => account.Id != accountId);
+
+            foreach (var item in allAccounts)
+            {
+                result.Add(item.GetDto().Id, item.GetDto().FullName);
+            }
+
+            return result;
+        }
     }
 }
