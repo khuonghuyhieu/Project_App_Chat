@@ -56,10 +56,10 @@ namespace ClassLibrary
             var input = new String(new char[] { });
             input = reponses;
 
-            if (input.IndexOf("}{") != -1)
+            while(input.IndexOf("}{") != -1)
             {
                 input = input.Insert(input.IndexOf("}{") + 1, "|");
-            }
+            }              
 
             var result = input.Split('|').ToList();
 

@@ -1,4 +1,5 @@
-﻿using ClassLibrary;
+﻿using App_Chat;
+using ClassLibrary;
 using DTO;
 using System;
 using System.Collections.Generic;
@@ -34,7 +35,7 @@ namespace Project_App_Chat
 
             RequestAccountsOnline(MainForm.accountLogin.Id);
             RequestGroupsJoined(MainForm.accountLogin.Id);
-            //RequestAllAccount(MainForm.accountLogin.Id);
+            RequestAllAccount(MainForm.accountLogin.Id);
 
             labelUserLogin.Text = MainForm.accountLogin.FullName;
 
@@ -340,6 +341,28 @@ namespace Project_App_Chat
         }
         #endregion
 
+        #region Add user t Group
+        private void RequesAllGroup()
+        {
+            var common = new Common
+            {
+                Kind = "getAllGroup",               
+            };
+
+            Utils.SendCommon(common, MainForm.client);
+        }
+        private void AddGroup()
+        {
+            PopupAddGroup popUpAddGroup = new PopupAddGroup();
+            popUpAddGroup.Show();
+
+        }
+        private void btnAddToGroup_Click(object sender, EventArgs e)
+        {
+            AddGroup();
+        }
+        #endregion
+
         private void AddMessage(string message)
         {
             if (InvokeRequired)
@@ -409,5 +432,6 @@ namespace Project_App_Chat
                 throw;
             }
         }
+        
     }
 }
