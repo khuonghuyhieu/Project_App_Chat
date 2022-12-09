@@ -54,7 +54,6 @@
             this.txbPort.Name = "txbPort";
             this.txbPort.Size = new System.Drawing.Size(148, 23);
             this.txbPort.TabIndex = 13;
-            this.txbPort.Text = "2008";
             this.txbPort.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label4

@@ -43,6 +43,7 @@
             this.comboBoxGroup.Name = "comboBoxGroup";
             this.comboBoxGroup.Size = new System.Drawing.Size(158, 23);
             this.comboBoxGroup.TabIndex = 0;
+            this.comboBoxGroup.SelectedIndexChanged += new System.EventHandler(this.comboBoxGroup_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -88,6 +89,7 @@
             this.btnAddGroup.TabIndex = 5;
             this.btnAddGroup.Text = "Add";
             this.btnAddGroup.UseVisualStyleBackColor = true;
+            this.btnAddGroup.Click += new System.EventHandler(this.btnAddGroup_Click);
             // 
             // PopupAddGroup
             // 
@@ -102,6 +104,8 @@
             this.Controls.Add(this.comboBoxGroup);
             this.Name = "PopupAddGroup";
             this.Text = "AddGroup";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PopupAddGroup_FormClosing);
+            this.Load += new System.EventHandler(this.PopupAddGroup_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -109,7 +113,7 @@
 
         #endregion
 
-        private ComboBox comboBoxGroup;
+        public ComboBox comboBoxGroup;
         private Label label1;
         private Label label2;
         private TextBox txbGroupName;

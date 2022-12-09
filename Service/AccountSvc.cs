@@ -87,10 +87,10 @@ namespace Service
 
             return accountsId;
         }
-        public async Task<Dictionary<int, string>> GetAllAccountExceptId(int accountId)
+        public async Task<Dictionary<int, string>> GetAllAccount()
         {
             var result = new Dictionary<int, string>(); //id(account): fullName
-            var allAccounts = _context.Account.Where(account => account.Id != accountId);
+            var allAccounts = _context.Account.ToList();
 
             foreach (var item in allAccounts)
             {

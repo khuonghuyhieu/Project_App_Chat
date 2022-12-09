@@ -87,7 +87,7 @@ namespace Project_App_Chat
 
                                     this.Close();
 
-                                    var mainChat = new MainChat();
+                                    var mainChat = new MainChat(new PopupAddGroup());
                                     mainChat.ShowDialog();
 
                                     return;

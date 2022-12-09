@@ -29,8 +29,8 @@ namespace Server
         {
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
-           
-            dsSocketClient = new Dictionary<int, Socket>();          
+
+            dsSocketClient = new Dictionary<int, Socket>();
 
             _context = new AppChatContext();
             _accountSvc = new AccountSvc(_context);
@@ -40,6 +40,7 @@ namespace Server
 
             //set cung cac gia tri           
             txbIp.Text = (Utils.GetLocalIPAddress());
+            txbPort.Text = "2008";
 
             //Mở kết nối cho Server để chuẩn bị lắng nghe các Client
             StartServer();
@@ -191,9 +192,8 @@ namespace Server
                                     }
                                 case "getAllAccounts":
                                     {
-                                        var accountIdReq = JsonSerializer.Deserialize<int>(common.Content); //chi co idAccount
                                         var allAccountRes = new Common();
-                                        var allAccounts = await _accountSvc.GetAllAccountExceptId(accountIdReq);
+                                        var allAccounts = await _accountSvc.GetAllAccount();
 
                                         allAccountRes.Kind = "allAccountRes";
                                         allAccountRes.Content = JsonSerializer.Serialize(allAccounts);
@@ -327,24 +327,30 @@ namespace Server
 
                                         break;
                                     }
-                                case "joinGroup":
+                                case "GetAllGroup":
                                     {
-                                        //var packetReq = JsonSerializer.Deserialize<Group>(common.Content);
+                                        var allGroupRes = new Common();
+                                        var allGroup = await _groupSvc.GetAllGroup();
 
-                                        //if (dsGroup.ContainsKey(packetReq.groupName))
-                                        //{
-                                        //    dsGroup[packetReq.groupName].Add(packetReq.userName);
-                                        //}
-                                        //else //khong co group thi tao roi join vao
-                                        //{
-                                        //    dsGroup.Add(packetReq.groupName, new List<string> { packetReq.userName });
-                                        //}
+                                        allGroupRes.Kind = "AllGroupRes";
+                                        allGroupRes.Content = JsonSerializer.Serialize(allGroup);
 
-                                        //var message = new byte[Utils.SIZE_BYTE];
-                                        //message = Encoding.ASCII.GetBytes("Join Group Successful !");
+                                        Utils.SendCommon(allGroupRes, client);
 
-                                        //client.Send(message, message.Length, SocketFlags.None);
-                                        //AddMessage(String.Format("{0} join Group {1} thanh cong", packetReq.userName, packetReq.groupName));
+                                        break;
+                                    }
+                                case "AddAccountToGroup":
+                                    {
+                                        var accountsReq = JsonSerializer.Deserialize<AddAccountsToGroup>(common.Content);
+                                        var addAccountToGroupRes = new Common();
+
+                                        addAccountToGroupRes.Kind = "AddAccountToGroupRes";
+
+                                        await _groupSvc.AddAccountIntoGroup(accountsReq.GroupName, accountsReq.Accounts);
+
+                                        addAccountToGroupRes.Content = "AddAccountsToGroupSuccessful";
+
+                                        Utils.SendCommon(addAccountToGroupRes, client);
 
                                         break;
                                     }
@@ -352,7 +358,7 @@ namespace Server
                                 default: break;
                             }
                         }
-                    }                
+                    }
                 }
                 client.Shutdown(SocketShutdown.Both);
                 client.Close();

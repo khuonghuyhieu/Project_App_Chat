@@ -21,8 +21,10 @@ namespace Project_App_Chat
         private Thread threadReceive;
         private int oldSelectedIndexOnline = -1;
         private int oldSelectedIndexGroup = -1;
+        public static CheckedListBox checkedListBoxGroup;
+        private PopupAddGroup popupAddGroup;
 
-        public MainChat()
+        public MainChat(PopupAddGroup popupAddGroup)
         {
             InitializeComponent();
 
@@ -40,6 +42,8 @@ namespace Project_App_Chat
             labelUserLogin.Text = MainForm.accountLogin.FullName;
 
             listViewIcons.Hide();
+
+            this.popupAddGroup = popupAddGroup;
         }
 
         #region Response From Server
@@ -139,6 +143,19 @@ namespace Project_App_Chat
                                         AddMessage(item.FullName + ": " + item.Message);
                                     }
 
+                                    break;
+                                }
+                            case "AllGroupRes":
+                                {
+                                    var allGroupDto = JsonSerializer.Deserialize<List<GroupDto>>(packetRes.Content);
+                                   
+                                    popupAddGroup.comboBoxGroup.DataSource = allGroupDto;
+                                    popupAddGroup.comboBoxGroup.DisplayMember = "Name";
+                                    popupAddGroup.comboBoxGroup.ValueMember = "Id";
+                                    popupAddGroup.comboBoxGroup.SelectedIndex = -1;
+
+                                    checkedListBoxGroup = checkAddToGroup;                                   
+                                  
                                     break;
                                 }
                             case "MessageRes": //nhan tin nhan giua cac client + group voi nhau
@@ -304,8 +321,7 @@ namespace Project_App_Chat
         {
             var common = new Common
             {
-                Kind = "getAllAccounts",
-                Content = JsonSerializer.Serialize(idAccountLogin),
+                Kind = "getAllAccounts",               
             };
 
             Utils.SendCommon(common, MainForm.client);
@@ -341,25 +357,25 @@ namespace Project_App_Chat
         }
         #endregion
 
-        #region Add user t Group
+        #region Get all group (button Add To Group)
         private void RequesAllGroup()
         {
             var common = new Common
             {
-                Kind = "getAllGroup",               
+                Kind = "GetAllGroup",               
             };
 
             Utils.SendCommon(common, MainForm.client);
         }
-        private void AddGroup()
-        {
-            PopupAddGroup popUpAddGroup = new PopupAddGroup();
-            popUpAddGroup.Show();
-
-        }
         private void btnAddToGroup_Click(object sender, EventArgs e)
-        {
-            AddGroup();
+        {           
+            if (checkAddToGroup.CheckedItems.Count != 0)
+            {
+                RequesAllGroup();
+                popupAddGroup.ShowDialog();
+            }              
+            else
+                MessageBox.Show("Please checked user you need add to group");
         }
         #endregion
 
