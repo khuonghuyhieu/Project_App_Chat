@@ -16,6 +16,8 @@ namespace Server
         Dictionary<string, Socket> dsSocketClient; //userName : socket
         Dictionary<string, List<string>> dsGroup; //groupName: list<userName>
 
+        public static string path;
+
         public ServerForm()
         {
             InitializeComponent();
@@ -262,7 +264,22 @@ namespace Server
 
                                     break;
                                 }
+                            case "SendFile":
+                                {
+                                    var sendFileReq = JsonSerializer.Deserialize<byte[]>(common.content);
+                                    //var messageRess = new Common();
 
+                                    //messageRess.kind = "MessageFile";
+
+                                    //byte[] clientData = new byte[1024 * 5000];
+                                    //int fileNameLength = BitConverter.ToInt32(sendFileReq, 0);
+
+                                    //string fName = Encoding.ASCII.GetString(clientData, 4, fileNameLength);
+
+                                    //BinaryWriter writer = new BinaryWriter(File.Open(path + "/" + fName, FileMode.Append ));
+
+                                    break;
+                                }
                             default: break;
                         }
                     }

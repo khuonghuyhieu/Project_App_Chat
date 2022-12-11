@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -19,6 +20,8 @@ namespace Project_App_Chat
         private int oldSelectedIndexGroup = -1;
 
         bool tmp = false;
+
+        private OpenFileDialog openFileDialog;
 
         public MainChat()
         {
@@ -39,6 +42,9 @@ namespace Project_App_Chat
             labelUserLogin.Text = MainForm.userName;
 
             listView1.Hide();
+
+            this.openFileDialog = new OpenFileDialog();
+
         }
 
         #region Response From Server
@@ -239,6 +245,48 @@ namespace Project_App_Chat
         private void listView1_Click_1(object sender, EventArgs e)
         {
             txbChat.AppendText(listView1.SelectedItems[0].Text);
+        }
+
+        private void btnFile_Click(object sender, EventArgs e)
+        {
+            var thread = new Thread(new ThreadStart(sendFile));
+            thread.Start();
+        }
+
+        private void sendFile()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if (openFileDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                var filePath = openFileDialog.FileName;
+                var path = "";
+
+                filePath = filePath.Replace("\\", "/");
+                while (filePath.IndexOf("/") > -1)
+                {
+                    path += filePath.Substring(0, filePath.IndexOf("/") + 1);
+                    filePath = filePath.Substring(filePath.IndexOf("/") + 1);
+                }
+
+                //byte[] fileNameByte = Encoding.ASCII.GetBytes(filePath);
+                //byte[] fileData = File.ReadAllBytes(path + filePath);
+                //byte[] clientData = new byte[4 + fileNameByte.Length + fileData.Length];
+                //byte[] fileNameLength = BitConverter.GetBytes(fileNameByte.Length);
+
+                //fileNameLength.CopyTo(clientData, 0);
+                //fileNameByte.CopyTo(clientData, 4 + fileNameByte.Length);
+
+                var common = new Common
+                {
+                    kind = "SendFile",
+                    content = JsonSerializer.Serialize(filePath)
+                };
+
+                Utils.SendCommon(common, MainForm.client);
+
+                txbChat.AppendText("File:/" + filePath);
+
+            }
         }
     }
 }

@@ -77,6 +77,7 @@
             this.btnSend = new System.Windows.Forms.Button();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.btnFile = new System.Windows.Forms.Button();
             this.listView1 = new System.Windows.Forms.ListView();
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.btnIcon = new System.Windows.Forms.Button();
@@ -349,7 +350,7 @@
             this.txbChat.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txbChat.Multiline = true;
             this.txbChat.Name = "txbChat";
-            this.txbChat.Size = new System.Drawing.Size(579, 42);
+            this.txbChat.Size = new System.Drawing.Size(533, 42);
             this.txbChat.TabIndex = 12;
             // 
             // btnSend
@@ -378,6 +379,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.btnFile);
             this.tabPage3.Controls.Add(this.listView1);
             this.tabPage3.Controls.Add(this.btnIcon);
             this.tabPage3.Controls.Add(this.panel4);
@@ -393,6 +395,17 @@
             this.tabPage3.TabIndex = 0;
             this.tabPage3.Text = "Chat";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // btnFile
+            // 
+            this.btnFile.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btnFile.Image = ((System.Drawing.Image)(resources.GetObject("btnFile.Image")));
+            this.btnFile.Location = new System.Drawing.Point(547, 554);
+            this.btnFile.Name = "btnFile";
+            this.btnFile.Size = new System.Drawing.Size(40, 43);
+            this.btnFile.TabIndex = 16;
+            this.btnFile.UseVisualStyleBackColor = true;
+            this.btnFile.Click += new System.EventHandler(this.btnFile_Click);
             // 
             // listView1
             // 
@@ -553,5 +566,6 @@
         private Button btnIcon;
         private ListView listView1;
         private ColumnHeader columnHeader1;
+        private Button btnFile;
     }
 }
