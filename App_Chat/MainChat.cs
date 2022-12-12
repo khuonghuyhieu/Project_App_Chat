@@ -35,7 +35,7 @@ namespace Project_App_Chat
             threadReceive.IsBackground = true;
             threadReceive.Start();
 
-            RequestAccountsOnline(MainForm.accountLogin.Id);
+            RequestAccountsOnOffline(MainForm.accountLogin.Id);
             RequestGroupsJoined(MainForm.accountLogin.Id);
             RequestAllAccount(MainForm.accountLogin.Id);
 
@@ -71,16 +71,20 @@ namespace Project_App_Chat
                     {
                         switch (packetRes.Kind)
                         {
-                            case "accountsOnlineRes":
+                            case "accountsOnOfflineRes":
                                 {
-                                    var accountsOnline = JsonSerializer.Deserialize<Dictionary<int, string>>(packetRes.Content);
+                                    var accountsOnline = JsonSerializer.Deserialize<List<AccountOnOffline>>(packetRes.Content);
 
-                                    var accountDto = new List<AccountDto>();
+                                    listBoxOnline.DataSource = null;
+                                    listBoxOnline.DataSource = accountsOnline;                                   
+                                    
+                                    for (int i = 0; i < listBoxOnline.Items.Count; i++)
+                                    {
+                                        var item = listBoxOnline.Items[i] as AccountOnOffline;
 
-                                    foreach (var item in accountsOnline)
-                                        accountDto.Add(new AccountDto { Id = item.Key, FullName = item.Value });
+                                        item.FullName = item.IsOnline ? item.FullName + " - Online" : item.FullName + " - Offline";                                      
+                                    }
 
-                                    listBoxOnline.DataSource = accountDto;
                                     listBoxOnline.DisplayMember = "FullName";
                                     listBoxOnline.ValueMember = "Id";
 
@@ -92,11 +96,20 @@ namespace Project_App_Chat
                                 {
                                     var groupJoined = JsonSerializer.Deserialize<List<GroupDto>>(packetRes.Content);
 
+                                    //listBox Group
                                     listBoxGroup.DataSource = groupJoined;
                                     listBoxGroup.DisplayMember = "Name";
                                     listBoxGroup.ValueMember = "Id";
 
                                     listBoxGroup.ClearSelected();
+
+                                    //comboBox Group
+                                    popupAddGroup.comboBoxGroup.DataSource = groupJoined;
+                                    popupAddGroup.comboBoxGroup.DisplayMember = "Name";
+                                    popupAddGroup.comboBoxGroup.ValueMember = "Id";
+                                    popupAddGroup.comboBoxGroup.SelectedIndex = -1;
+
+                                    checkedListBoxGroup = checkAddToGroup;
 
                                     break;
                                 }
@@ -144,26 +157,26 @@ namespace Project_App_Chat
                                     }
 
                                     break;
-                                }
-                            case "AllGroupRes":
-                                {
-                                    var allGroupDto = JsonSerializer.Deserialize<List<GroupDto>>(packetRes.Content);
-                                   
-                                    popupAddGroup.comboBoxGroup.DataSource = allGroupDto;
-                                    popupAddGroup.comboBoxGroup.DisplayMember = "Name";
-                                    popupAddGroup.comboBoxGroup.ValueMember = "Id";
-                                    popupAddGroup.comboBoxGroup.SelectedIndex = -1;
-
-                                    checkedListBoxGroup = checkAddToGroup;                                   
-                                  
-                                    break;
-                                }
+                                }                            
                             case "MessageRes": //nhan tin nhan giua cac client + group voi nhau
                                 {
                                     var message = JsonSerializer.Deserialize<MessageRes>(packetRes.Content);
 
-                                    if (message != null)
+                                    if (message != null && !message.Content.Equals(" is leave group") && !message.Content.Equals(" is joined group")) //tin nhan thuong
                                         AddMessage(message.FullName + ": " + message.Content);
+                                    else
+                                        AddMessage(message.FullName + message.Content); // tin nhan thong bao joined + out group
+
+                                    break;
+                                }
+                            case "OutGroupRes":
+                                {
+                                    var outGroupMess = JsonSerializer.Deserialize<string>(packetRes.Content);
+
+                                    if (outGroupMess.Equals("OutGroupSuccess"))
+                                        MessageBox.Show("Out group successfully");
+                                    else
+                                        MessageBox.Show("Out group fails");
 
                                     break;
                                 }
@@ -296,12 +309,12 @@ namespace Project_App_Chat
         }
         #endregion
 
-        #region Send packet AccountOnline + GroupJoined + AllAccount
-        private void RequestAccountsOnline(int idAccountLogin)
+        #region Send packet AccountOnOffLine + GroupJoined + AllAccount
+        private void RequestAccountsOnOffline(int idAccountLogin)
         {
             var common = new Common
             {
-                Kind = "getAccountsOnline",
+                Kind = "getAccountsOnOffline",
                 Content = JsonSerializer.Serialize(idAccountLogin),
             };
 
@@ -328,9 +341,19 @@ namespace Project_App_Chat
         }
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            RequestAccountsOnline(MainForm.accountLogin.Id);
+            RequestAccountsOnOffline(MainForm.accountLogin.Id);
             RequestGroupsJoined(MainForm.accountLogin.Id);
-            //RequestAllAccount(MainForm.accountLogin.Id);
+            RequestAllAccount(MainForm.accountLogin.Id);
+        }
+        private void btnAddToGroup_Click(object sender, EventArgs e)
+        {
+            if (checkAddToGroup.CheckedItems.Count != 0)
+            {
+                RequestGroupsJoined(MainForm.accountLogin.Id);
+                popupAddGroup.ShowDialog();
+            }
+            else
+                MessageBox.Show("Please checked user you need add to group");
         }
         #endregion
 
@@ -357,25 +380,32 @@ namespace Project_App_Chat
         }
         #endregion
 
-        #region Get all group (button Add To Group)
-        private void RequesAllGroup()
+        #region Out Group
+        private void OutGroup ()
         {
+            var outGroup = new OutGroup
+            {
+                AccountId = MainForm.accountLogin.Id,
+                GroupId = int.Parse(listBoxGroup.GetItemText(listBoxGroup.SelectedValue))
+            };
+
             var common = new Common
             {
-                Kind = "GetAllGroup",               
+                Kind = "OutGroup",
+                Content = JsonSerializer.Serialize(outGroup),
             };
 
             Utils.SendCommon(common, MainForm.client);
         }
-        private void btnAddToGroup_Click(object sender, EventArgs e)
-        {           
-            if (checkAddToGroup.CheckedItems.Count != 0)
-            {
-                RequesAllGroup();
-                popupAddGroup.ShowDialog();
-            }              
+        private void btnOutGroup_Click(object sender, EventArgs e)
+        {
+            if (listBoxGroup.SelectedIndex == -1)
+                MessageBox.Show("Pleas choose group you want out");
             else
-                MessageBox.Show("Please checked user you need add to group");
+            {
+                OutGroup();
+                RequestGroupsJoined(MainForm.accountLogin.Id);
+            }
         }
         #endregion
 

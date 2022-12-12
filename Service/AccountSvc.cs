@@ -1,4 +1,5 @@
-﻿using DTO;
+﻿using ClassLibrary;
+using DTO;
 using Microsoft.EntityFrameworkCore;
 using Models.Data;
 using Models.Models;
@@ -44,15 +45,19 @@ namespace Service
 
             return true;
         }
-        public async Task<Dictionary<int,string>> GetIdAndFullNameByAccountId(params int[] idAccount)
+        public async Task<List<AccountOnOffline>> GetAccountOfAndOnline(List<int> idAccountstOnline,int accountIdReq)
         {
-            var accounts = _context.Account.Where(account => idAccount.Contains(account.Id)).ToList();
-            var result = new Dictionary<int, string>(); //id(account): fullName
+            var result = new List<AccountOnOffline>();
 
-            foreach (var item in accounts)
+            foreach (var account in _context.Account.Where(account => account.Id != accountIdReq).ToList())
             {
-                result.Add(item.GetDto().Id,item.GetDto().FullName);
-            }
+                if (idAccountstOnline.Contains(account.Id))
+                {
+                    result.Add(new AccountOnOffline { Id = account.Id, FullName = account.FullName, IsOnline = true });
+                }
+                else
+                    result.Add(new AccountOnOffline { Id = account.Id, FullName = account.FullName, IsOnline = false });
+            }          
 
             return result ;
         }

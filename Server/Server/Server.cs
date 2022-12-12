@@ -176,15 +176,15 @@ namespace Server
 
                                         break;
                                     }
-                                case "getAccountsOnline":
+                                case "getAccountsOnOffline":
                                     {
                                         var accountIdReq = JsonSerializer.Deserialize<int>(common.Content); //chi co idAccount
                                         var accountOnlineRes = new Common();
-                                        var accountsOnline = dsSocketClient.Keys.Where(item => item != accountIdReq);
-                                        var fullNameAccountOinline = await _accountSvc.GetIdAndFullNameByAccountId(accountsOnline.ToArray());
+                                        var idAccountstOnline = dsSocketClient.Keys.Where(item => item != accountIdReq);
+                                        var accountsOnOffline = await _accountSvc.GetAccountOfAndOnline(idAccountstOnline.ToList(), accountIdReq);
 
-                                        accountOnlineRes.Kind = "accountsOnlineRes";
-                                        accountOnlineRes.Content = JsonSerializer.Serialize(fullNameAccountOinline);
+                                        accountOnlineRes.Kind = "accountsOnOfflineRes";
+                                        accountOnlineRes.Content = JsonSerializer.Serialize(accountsOnOffline);
 
                                         Utils.SendCommon(accountOnlineRes, client);
 
@@ -257,47 +257,8 @@ namespace Server
                                 case "chatUserToGroup":
                                     {
                                         var messageReq = JsonSerializer.Deserialize<MessageReq>(common.Content);
-                                        var messageRes = new Common();
-                                        var accountsIdInGroup = await _accountSvc.GetAccountsIdInGroupByGroupId(messageReq.ReceiverId);
-                                        var accountIndGroupOnline = accountsIdInGroup.FindAll(accountId => dsSocketClient.Keys.Contains(accountId));
 
-                                        messageRes.Kind = "MessageRes";
-
-                                        foreach (var accountId in accountIndGroupOnline)
-                                        {
-                                            var socketReceiver = dsSocketClient[accountId];
-
-                                            var message = new MessageRes
-                                            {
-                                                FullName = _accountSvc.GetAccountById(messageReq.SenderId).Result.FullName,
-                                                Content = messageReq.Content,
-                                            };
-
-                                            messageRes.Content = JsonSerializer.Serialize(message);
-
-                                            Utils.SendCommon(messageRes, socketReceiver);
-                                        }
-
-                                        await _messageGroupSvc.AddMessageGroup(messageReq);
-
-                                        //if (dsSocketClient.Keys.Contains(messageReq.ReceiverId)) //user dang online
-                                        //{
-                                        //    var socketReceiver = dsSocketClient[messageReq.ReceiverId];
-
-                                        //    var message = new MessageRes
-                                        //    {
-                                        //        FullName = _accountSvc.GetAccountById(messageReq.SenderId).Result.FullName,
-                                        //        Content = messageReq.Content,
-                                        //    };
-
-                                        //    messageRes.Content = JsonSerializer.Serialize(message);
-
-                                        //    Utils.SendCommon(messageRes, socketReceiver);
-
-                                        //    //AddMessage(String.Format("{0} gui den {1}: {2}", messageReq.SenderId, messageReq.ReceiverId, messageReq.Content));
-                                        //}
-
-                                        //await _messageUserSvc.AddMessageUserToUser(messageReq); //online hay khong cung luu tin nhan
+                                        await ChatUserToGroup(messageReq);
 
                                         break;
                                     }
@@ -327,19 +288,7 @@ namespace Server
 
                                         break;
                                     }
-                                case "GetAllGroup":
-                                    {
-                                        var allGroupRes = new Common();
-                                        var allGroup = await _groupSvc.GetAllGroup();
-
-                                        allGroupRes.Kind = "AllGroupRes";
-                                        allGroupRes.Content = JsonSerializer.Serialize(allGroup);
-
-                                        Utils.SendCommon(allGroupRes, client);
-
-                                        break;
-                                    }
-                                case "AddAccountToGroup":
+                                case "AddAccountToGroup": //join group
                                     {
                                         var accountsReq = JsonSerializer.Deserialize<AddAccountsToGroup>(common.Content);
                                         var addAccountToGroupRes = new Common();
@@ -351,6 +300,47 @@ namespace Server
                                         addAccountToGroupRes.Content = "AddAccountsToGroupSuccessful";
 
                                         Utils.SendCommon(addAccountToGroupRes, client);
+
+                                        //gui thong bao user join group cho cac user dang o trong group
+                                        foreach (var item in accountsReq.Accounts)
+                                        {
+                                            var messageReq = new MessageReq
+                                            {
+                                                SenderId = item.Id,
+                                                ReceiverId = _groupSvc.GetGroupByName(accountsReq.GroupName).Result.Id,
+                                                Content = " is joined group",
+                                                TimeSend = DateTime.Now
+                                            };
+
+                                            await ChatUserToGroup(messageReq);
+                                        }
+
+
+                                        break;
+                                    }
+                                case "OutGroup":
+                                    {
+                                        //out group
+                                        var outGroupReq = JsonSerializer.Deserialize<OutGroup>(common.Content);
+                                        var outGroupRes = new Common();
+
+                                        await _groupSvc.RemoveUserFromGroup(outGroupReq.AccountId, outGroupReq.GroupId);
+
+                                        outGroupRes.Kind = "OutGroupRes";
+                                        outGroupRes.Content = JsonSerializer.Serialize("OutGroupSuccess");
+
+                                        Utils.SendCommon(outGroupRes, client);
+
+                                        //gui thong bao user out group den cac thanh vien khac dang trong group
+                                        var messageReq = new MessageReq
+                                        {
+                                            SenderId = outGroupReq.AccountId,
+                                            ReceiverId = outGroupReq.GroupId,
+                                            Content = " is leave group",
+                                            TimeSend = DateTime.Now
+                                        };
+
+                                        await ChatUserToGroup(messageReq);
 
                                         break;
                                     }
@@ -381,6 +371,31 @@ namespace Server
 
             txbKhungHoatDong.AppendText(message);
             txbKhungHoatDong.AppendText(Environment.NewLine);
+        }
+        private async Task ChatUserToGroup(MessageReq messageReq)
+        {
+            var messageRes = new Common();
+            var accountsIdInGroup = await _accountSvc.GetAccountsIdInGroupByGroupId(messageReq.ReceiverId);
+            var accountIndGroupOnline = accountsIdInGroup.FindAll(accountId => dsSocketClient.Keys.Contains(accountId));
+
+            messageRes.Kind = "MessageRes";
+
+            foreach (var accountId in accountIndGroupOnline)
+            {
+                var socketReceiver = dsSocketClient[accountId];
+
+                var message = new MessageRes
+                {
+                    FullName = _accountSvc.GetAccountById(messageReq.SenderId).Result.FullName,
+                    Content = messageReq.Content,
+                };
+
+                messageRes.Content = JsonSerializer.Serialize(message);
+
+                Utils.SendCommon(messageRes, socketReceiver);
+            }
+
+            await _messageGroupSvc.AddMessageGroup(messageReq);
         }
     }
 }

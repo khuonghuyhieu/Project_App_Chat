@@ -31,29 +31,6 @@ namespace Project_App_Chat
             txbPassword.Text = "123";
         }
 
-        #region Login
-        private void RequestLogin()
-        {
-            //goi tin dang nhap
-            var login = new Login
-            {
-                userName = txbUserName.Text,
-                password = txbPassword.Text,
-            };
-            var common = new Common
-            {
-                Kind = "login",
-                Content = JsonSerializer.Serialize(login)
-            };
-
-            Utils.SendCommon(common, MainForm.client);
-        }
-        private void btnLogin_Click(object sender, EventArgs e)
-        {
-            RequestLogin();
-        }
-        #endregion
-
         #region Response From Server
         private void ResponeFromServer()
         {
@@ -106,6 +83,41 @@ namespace Project_App_Chat
             MainForm.client.Close();
         }
         #endregion
+
+        #region Login
+        private void RequestLogin()
+        {
+            //goi tin dang nhap
+            var login = new Login
+            {
+                userName = txbUserName.Text,
+                password = txbPassword.Text,
+            };
+            var common = new Common
+            {
+                Kind = "login",
+                Content = JsonSerializer.Serialize(login)
+            };
+
+            Utils.SendCommon(common, MainForm.client);
+        }
+        private void btnLogin_Click(object sender, EventArgs e)
+        {
+            RequestLogin();
+        }
+        #endregion
+
+        private void RequestGroupsJoined(int idAccountLogin)
+        {
+            var common = new Common
+            {
+                Kind = "getGroupsJoined",
+                Content = JsonSerializer.Serialize(idAccountLogin),
+            };
+
+            Utils.SendCommon(common, MainForm.client);
+        }
+
         private void PopupLogin_FormClosing(object sender, FormClosingEventArgs e)
         {
             Utils.KillThread(threadReceive);

@@ -32,6 +32,10 @@ namespace Service
 
             return result;
         }
+        public async Task<GroupDto> GetGroupByName (string groupName)
+        {
+            return _context.Group.FirstOrDefaultAsync(group => group.Name.Equals(groupName)).Result.GetDto();
+        }
         public async Task<List<GroupDto>> GetAllGroup()
         {
             var allGroupsDto = new List<GroupDto>();
@@ -82,6 +86,10 @@ namespace Service
         public async Task<bool> IsGroupNameExits(string groupName)
         {
             return await _context.Group.AnyAsync(group => group.Name.Equals(groupName));
+        }
+        public async Task RemoveUserFromGroup(int acocuntId,int groupId)
+        {
+            await _context.Database.ExecuteSqlAsync($"delete from Account_Group where AccountId = {acocuntId} and GroupId = {groupId}");
         }
     }
 }
